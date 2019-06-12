@@ -145,19 +145,21 @@ class DAO_Empresa implements DAO_Interface {
 		$app = Aplicacion::getSingleton();
 		$db = $app->conexionBd();
 	    //Buscamos en la base de datos el posble gmail
-	     $consul = sprintf("SELECT * FROM empresa WHERE email = '$gmail' ORDER BY nombre");
-	     $res = $db->query($consul);
-
+	    $consul = sprintf("SELECT * FROM empresa WHERE email = '$gmail' ORDER BY nombre");
+	    $consul2= sprintf("SELECT * FROM usuario WHERE email = '$gmail' ORDER BY nombre");
+	    $res = $db->query($consul);
+	    $res2= $db->query($consul2);
     //Si la consulta fuese tan correcta
-	  if ($res){
+	  if ($mysqli_num_rows($res) != 0){
 	  		$empresa = mysqli_fetch_assoc($res);
 			$transfer = new empresaTransfer($empresa["ID_Empresa"],$empresa["Nombre"],$empresa["password"],$empresa["email"], $empresa["Localizacion"], $empresa["Sector"],
         	$empresa["Oficio"], $empresa["Fase"], $empresa["Img_Empresa"], $empresa["cartaPresentacion"], $empresa["buscamos"], $empresa["ofrecemos"], $empresa["numLikes"]);
 			return $transfer;
 		}
-		else {
-			return null;
+		elseif ($mysqli_num_rows($res2) != 0) {
+			return 1;
 		}
+		return null;
 	}
 
   function getTopTres(){

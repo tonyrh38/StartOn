@@ -27,7 +27,9 @@ require_once ("../logica/SA_Usuario.php");
 					}
 					else{
 						$SA = SA_Usuario::getInstance();
+
 						$transfer = new TransferUsuario("",$nombre,$apellido,$password, $email,"", "" ,"" ,"","img/usuario.png","","");
+		 		
 				 		$dir = $SA->createElement($transfer);
 				 	}
 				 	if($dir !== "Error"){

@@ -51,7 +51,7 @@ class SA_Empresa implements SA_Interface {
 
 			$empDAO = DAO_Empresa::getInstance();
 			    //Recibimos la lista de los elementos que tenemos en la base de datos
-		  if($empDAO->getElementByEmail($transfer->getEmail()) != NULL) {
+		  if($empDAO->getElementByEmail($transfer->getEmail()) == NULL) {
         $elements = $empDAO->getAllElements();
         $size = sizeof($elements);
 

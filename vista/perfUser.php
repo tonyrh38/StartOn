@@ -45,7 +45,7 @@ require_once ("../logica/SA_Usuario.php");
 			<div id="perfil">
 				<div id="card">
 					<?php
-          echo '<img src= "../'.$transferUser->getImagenPerfil().'"  style="width:100%">';
+        			echo '<img src= "../'.$transferUser->getImagenPerfil().'"  style="width:100%">';
 					echo " <p class='burbuja' id='btitulo'> ".$transferUser->getNombre()."  ".$transferUser->getApellido()."</p>";
 					echo " <p class ='burbuja'> ".$transferUser->getOficio()." </p>";
 					echo " <p class ='burbuja'> ".$transferUser->getLocalizacion()." </p>";

@@ -133,19 +133,22 @@ public function updateElement($id, $campo, $nuevoValor) {
 	   $app = Aplicacion::getSingleton();
 	   $conn = $app->conexionBd();
 	    //Buscamos en la base de datos el posble gmail
+
 	     $consulta = sprintf("SELECT * FROM usuario WHERE email = '$gmail' ORDER BY nombre");
+	     $consulta2= sprintf("SELECT * FROM empresa WHERE email = '$gmail' ORDER BY nombre");
 	     $res = $conn->query($consulta);
+	     $res2 = $conn->query($consulta2);
         //Si la consulta fuese tan correcta
-	     if ($res){
+	     if (mysqli_num_rows($res) != 0){
 	     	$usuario = mysqli_fetch_assoc($res);
 			$transfer = new TransferUsuario($usuario["ID_usuario"],$usuario["Nombre"],$usuario["Apellidos"],
       		$usuario["password"], $usuario["email"], $usuario["Localizacion"], $usuario["Experiencia"], $usuario["Pasiones"], $usuario["CartaPresentacion"], $usuario["Img_Perfil"], $usuario["Oficio"], $usuario["Curriculum"]);
 			return $transfer;
 		}
-		else {
-			return ;
+		elseif (mysqli_num_rows($res2) != 0) {
+			return 1;
 		}
-
+		return NULL;
 	}
   public function getAllElementsById($id) {
     $app = Aplicacion::getSingleton();

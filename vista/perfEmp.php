@@ -85,7 +85,6 @@ require_once ("../logica/transferLike.php");
 		}
 	?>
 
-
 	<div id="perfil">
 		<div id="card">
 			<?php
@@ -96,7 +95,6 @@ require_once ("../logica/transferLike.php");
 			/* BOTON LIKES*/
 					if(isset($_SESSION['login']) && $_SESSION['login'] == true && isset($_SESSION['id_usuario'])){
 						$idEmp = $transfer->getId_Empresa();
-
 						if($SAlikes->getElementsByIds($idEmp, $_SESSION['id_usuario']) != false){
 							echo '<form action="perfEmp.php?id='.$idEmp.'" method="post">';
 								echo '<button class="botonGuay" id="botonRojo" type="submit" name="dislike" value="'.$idEmp.'">Quitar like</button>';
@@ -133,11 +131,12 @@ require_once ("../logica/transferLike.php");
 		</div>
 		<?php
 		if(isset($_SESSION['login']) && $_SESSION['login'] == true && isset($_SESSION['id_empresa']))
-			if($_SERVER["REQUEST_METHOD"] !== "GET" || ($_SERVER["REQUEST_METHOD"] == "GET" && (!$_GET || $_GET["id"]==$_SESSION['id_empresa'])))
+			if($_SERVER["REQUEST_METHOD"] !== "GET" || ($_SERVER["REQUEST_METHOD"] == "GET" && (!$_GET || $_GET["id"]==$_SESSION['id_empresa']))){
 					echo '<div class="row"><a  id= "botonSubmit" class ="botonGuay" href="mod_perf.php" >Modificar perfil</a>';
 					echo '<a class ="botonGuay" href="crear_evento.php" >Crear Evento</a></div>';
+			}
 		?>
-			</div>
+		</div>
 
 		<!--PHP LISTA LIKES-->
 

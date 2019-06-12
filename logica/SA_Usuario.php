@@ -41,6 +41,18 @@ class SA_Usuario implements SA_Interface {
 		return $res;
     }
 
+  /**
+    
+  */
+  function existEmail($email){
+    $userDAO = DAO_Usuario::getInstance();
+    $res = $userDAO->getElementByEmail($email); 
+    if($res  == NULL) {
+        return false;
+    }
+    return true;
+  }
+
     /**Esta funcion se encarga de crear un elemento a partir de un transfer
      * @param transfer: contiene un transfer con posibles datos de un usuario
        @return error: si la creacion del usuario esta incorrecta
@@ -54,25 +66,20 @@ class SA_Usuario implements SA_Interface {
 			     return "Error";
 			}
 
-			//Si el tamaño del array es 0 significa que no tenemos errores en la lista
 
+			//Si el tamaño del array es 0 significa que no tenemos errores en la lista
 			    $userDAO = DAO_Usuario::getInstance();
 			    //Recibimos la lista de los elementos que tenemos en la base de datos
-			    if($userDAO->getElementByEmail($transfer->getEmail()) != NULL) {
+          if($userDAO->getElementByEmail($transfer->getEmail()) == NULL) {
             $elements = $userDAO->getAllElements();
 			      $size = sizeof($elements);
-
-                //Generamos el id del nuevo usuario a partir del tamaño de la lista
+            //Generamos el id del nuevo usuario a partir del tamaño de la lista
 		        $transfer->setId_Usuario($this->generateId($elements[$size-1]->getId_Usuario()));
-		        //Hasheamos la contraseña para evitar fallos de seguridad
-		        $transfer->setPassword($transfer->getPassword());
 		        //Añadimos el elemento a la base de datos a traves del DAO
     				$prueba = $userDAO->createElement($transfer);
-
     				$_SESSION['id_usuario'] =$transfer->getId_Usuario();
-        			$_SESSION['login'] = true;
-        			$_SESSION['nombre'] = $transfer->getNombre();
-
+        		$_SESSION['login'] = true;
+        		$_SESSION['nombre'] = $transfer->getNombre();
     			return "perfUser.php";
 			   }
 	        return "Error";
