@@ -1,0 +1,442 @@
+/*
+	En esta pagina se recoge el estilo de:
+		. modificaciones de los elementos de html
+		· el menu de navegacion (#header)
+		· el pie de pagina (#footer)
+		· clases comunes a todas las paginas (.text,etc)
+*/
+* {
+  box-sizing: border-box;
+}
+html, body{
+  height:100%;
+  margin:0px;
+
+  display: flex;
+  flex-direction: column;
+}
+#espacio{
+  margin-top: 250px;
+}
+
+body{
+	background-image: url('../../img/BackGround2.png');
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+  font-family: arial;
+}
+
+/*logos*/
+#logo_inicio{
+  padding: 30px;
+  width: 50%;
+  height: auto;
+  box-shadow: 0 0px 0px 0 rgba(0,0,0,0);
+}
+#logo_cabecera{
+  width: 100px;
+  height: auto;
+  box-shadow: none;
+}
+
+.titulo{
+	font-size: 50px;
+	padding: 30px;
+  font-family: arial;
+}
+/*
+	Estilo de la barra de navegacion
+*/
+ul {
+  list-style-type: none;
+  margin: 0px;
+  padding: 0;
+  overflow: hidden;
+  background-color: #c9c9ff;
+  border: 0px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+#cabecera {
+  width: 100%;
+  position: fixed;
+}
+#container{
+  margin-top: 0px;
+  margin-bottom: 60px;
+}
+li {
+  float: left;
+}
+li a {
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 8px 16px;
+  text-decoration: none;
+  font-size: 18px;
+}
+li a:hover {
+  background-color: #ffbdbd;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  border-radius: 0px;
+}
+
+.column{
+	float: left;
+	width: 50%;
+}
+
+.row{
+	background-color: none;
+	text-align: center;
+}
+
+.titulo{
+	background-color: none;
+	text-align: center;
+  margin-top: 30px;
+}
+.tituloIndx{
+  font-size: 50px;
+  margin-top: 150px;
+  margin-bottom: -30px;
+  font-family: arial;
+  font-size: 70px;
+  color: #777777;
+}
+.fraseIndx{
+  font-size: 35px;
+  float: left;
+  width: 500px;
+  font-family: arial;
+  color: #777777;
+}
+.fotoIndex{
+width: 600px;
+height: auto;
+float: left;
+border-radius: 20px;
+}
+.rowind{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/*
+	Estilo de botones
+*/
+.botonGuay {
+  border-radius: 20px;
+  border: 0px;
+  display: inline-block;
+  padding: 8px;
+  color: black;
+  text-align: center;
+  cursor: pointer;
+  width: 33%;
+  font-size: 16px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  background-color: white;
+  margin-left: 10px;
+}
+#botonSubmit{
+  width: 15%;
+
+}
+.botonGuay:hover{
+  border-style: solid;
+  border-width: 0.5px;
+  padding: 7px;
+  box-shadow: 0 6px 10px 0 rgba(0,0,0,0.3);
+  border-color: #aaaaaa;
+}
+#botonSubmitE{
+  padding: 2px;
+  width: 100px;
+  background-color: #c9c9ff;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  border-radius: 20px;
+}
+#botonSubmitU{
+  padding: 2px;
+  width: 100px;
+  background-color: #c9c9ff;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  border-radius: 20px;
+}
+
+#Botonempresa{
+  background-color: #c9c9ff;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  border-radius: 20px;
+}
+#Botonusuario{
+  background-color: #ffbdbd;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  border-radius: 20px;
+}
+#botonHeader{
+  background-image:url('../img/Logo2.png');
+  background-repeat:no-repeat;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  border-radius: 20px;
+}
+a {
+  text-decoration: none;
+  font-size: 18px;
+  color: black;
+  border-radius: 20px;
+  margin: -3px;
+}
+
+img{
+ border-radius: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+#imagenCuadro{
+  object-fit: cover;
+  margin: -10px 10px 10px 0px;
+  width: 130px;
+  height: 150px;
+}
+.busqueda{
+  margin-top: -5px;
+  width: 70%;
+  border-radius: 10px;
+  background-color: white;
+  padding: 10px;
+  font-family: 'arial', arial;
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.2);
+}
+/*
+  Estilo del footer
+*/
+
+.footer {
+  background-color: #aaaaaa;
+  box-sizing: border-box;
+  position: relative;
+  position:fixed;
+  margin: 0px;
+  height: 30px;
+  width:  100%;
+  bottom: 0px;
+  text-align:center;
+  padding: 5px;
+}
+/*
+ perfiles
+*/
+.burbuja{
+  background-color: white;
+  border: 0px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  border-radius: 20px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  margin-left: 3px;
+  margin-right: 3px;
+}
+#bcoment{
+  float:left;
+  background-color: #c9c9ff;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  border-radius: 20px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  width: 66%;
+}
+
+#btitulo{
+  font-weight: bold;
+    background-color: #ffbdbd;
+}
+
+#btexto{
+  padding: 14px;
+}
+
+#bconocenos{
+  margin-left: 50px;
+  margin-right: 50px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+div #card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  min-height: 250px;
+  max-width: 300px;
+  margin: 60px 30px 0px 30px;
+  padding: 8px;
+  border-radius: 20px;
+  float: left;
+  text-align: center;
+  background-color: #c9c9ff;
+}
+
+div #card img {
+  width: 100%;
+  max-width: 250px;
+  height: auto;
+  border-radius: 20px;
+}
+/*
+@supports(object-fit: cover){
+    div #card img{
+      height: 300px;
+      object-fit: cover;
+      object-position: center top;
+    }
+}
+*/
+
+#FotoPerfil{
+    border-radius: 20px;
+}
+div #perfil {
+  height: 100%;
+  padding: 8px;
+  float: left;
+  margin: auto;
+  text-align: center;
+}
+#Modperfil{
+margin:auto;
+margin-top: 20px;
+margin-bottom: 45px;
+display: inline-block;
+text-align: center;
+  width: 500px;
+  background: #ffbdbd;
+  padding: 25px;
+  font-family: 'arial', arial;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+
+}
+#ModperfilCampos{
+  width:100%;
+  height:36px;
+  margin:2px 8px 6px;
+  padding-left:6px;
+  box-sizing: border-box;
+  border-radius:30px;
+  border:0;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size:1em;
+  background-color:#fefefe;
+}
+
+#likes{
+  margin-left: 15px;
+  margin-top: 10px;
+  font-size: 20px;
+  background-color: #c9c9ff;
+}
+/*
+tarjetas ayuda
+*/
+
+.rankingcard{
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  max-width: 920px;
+  height: 300px;
+  margin: 60px 30px 0px 30px;
+  padding: 8px;
+  border-radius: 20px;
+  display: inline-block;
+  text-align: center;
+  background-color: #ffbdbd;
+}
+.rankingcard #card{
+  padding: 10px;
+  max-width: 150px;
+  margin: 10px 10px 10px 10px;
+  max-height: 100PX;
+}
+#likeButton{
+  background-color: green;
+}
+#botonRojo{
+  background-color: red;
+}
+.ayudaCard {
+  padding: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  width: 1418px;;
+  border-radius: 20px;
+  background-color: #ffbdbd;
+  text-align: center;
+  margin: 50px;
+}
+
+.conocenosCard {
+  padding: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 40%;
+  border-radius: 10px;
+  background-color: #c9c9ff;
+  text-align: center;
+  margin: 30px;
+}
+
+/*
+extras
+*/
+.form-consulta {
+  display: inline-block;
+  text-align: center;
+  max-width: 700px;
+  background: #ffbdbd;
+  padding: 25px;
+  font-family: 'arial', arial;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+.campo-form {
+  width:100%;
+  height:36px;
+  margin:2px 0 6px;
+  padding-left:6px;
+  box-sizing: border-box;
+  border-radius:30px;
+  border:0;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size:1em;
+}
+
+
+.row_content{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+label span {color: #f00}
+textarea {min-height: 150px!important;}
+.btn-form {
+  display: inline-block;
+  border:0;
+  background: #000;
+  height: 46px;
+  line-height: 46px;
+  padding: 0 20px;
+  border-radius: 6px;
+  color:#fff;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 1px
+}
+.btn-form:hover {background: #444}
+
+}
