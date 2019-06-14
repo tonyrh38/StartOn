@@ -8,10 +8,10 @@
 	<title>Start On</title>
 </head>
 <body>
-  		<?php require ("vista/common/indexHeader.php")?>
+  <?php require ("vista/common/indexHeader.php")?>
 	<div id="container">
 		<div class="row">
-      <div class="rowC"> <!--Row titulo-->
+      <div class="row"> <!--Row titulo-->
         <div class="tituloIndx">Conectando talento con Startups</div>
       </div>
 			<div class="titulo">

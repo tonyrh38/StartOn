@@ -136,8 +136,8 @@ public function updateElement($id, $campo, $nuevoValor) {
 
 	     $consulta = sprintf("SELECT * FROM usuario WHERE email = '$gmail' ORDER BY nombre");
 	     $consulta2= sprintf("SELECT * FROM empresa WHERE email = '$gmail' ORDER BY nombre");
-	     $res = $conn->query($consulta);
-	     $res2 = $conn->query($consulta2);
+	     $res = mysqli_query($conn, $consulta);
+	     $res2 = mysqli_query($conn, $consulta2);
         //Si la consulta fuese tan correcta
 	     if (mysqli_num_rows($res) != 0){
 	     	$usuario = mysqli_fetch_assoc($res);
@@ -146,7 +146,10 @@ public function updateElement($id, $campo, $nuevoValor) {
 			return $transfer;
 		}
 		elseif (mysqli_num_rows($res2) != 0) {
-			return 1;
+			$empresa = mysqli_fetch_assoc($res2);
+			$transfer = new empresaTransfer($empresa["ID_Empresa"],$empresa["Nombre"],$empresa["password"],$empresa["email"], $empresa["Localizacion"], $empresa["Sector"],
+        	$empresa["Oficio"], $empresa["Fase"], $empresa["Img_Empresa"], $empresa["cartaPresentacion"], $empresa["buscamos"], $empresa["ofrecemos"], $empresa["numLikes"]);
+			return $transfer;
 		}
 		return NULL;
 	}

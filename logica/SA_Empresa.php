@@ -65,9 +65,9 @@ class SA_Empresa implements SA_Interface {
         $_SESSION['login'] = true;
         $_SESSION['nombre'] = $transfer->getNombre();
     		return "perfEmp.php";
-        }
-        return "Error";
       }
+      return "Error";
+    }
 
         /**Esta funcion se encarga de logear un usuario a traves del numero del tamaño
           @param size: contiene un entero positivo
@@ -196,7 +196,7 @@ class SA_Empresa implements SA_Interface {
 
           //Se comprueba que la contraseña que recibimos en el transfer coincicide con el valor hasheado del transfer recibido por el DAO
           $password = $transfer->getPassword();
-    			if($empObject == null || $password !== $empObject->getPassword()){
+    			if($empObject == null || $password !== $empObject->getPassword() || !isset($empObject->getId_Empresa)){
             $_SESSION['success'] = "error";
             $_SESSION['login'] = false;
     				return "../index.php";

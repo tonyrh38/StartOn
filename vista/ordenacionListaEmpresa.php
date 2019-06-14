@@ -24,7 +24,7 @@
         echo '<h2>'.$lastTitle.'</h2>';
         }
         echo '<div id= "card">';     //hay que hacer el css card en comon para la lista
-          echo '<a href ="/ProyectoStartOn/vista/perfEmp.php?id='.$value->getId_Empresa().'" ><img src= "/ProyectoStartOn/'.$value->getImagenPerfil().'"  style="width:100%"></a>';
+          echo '<a href ="perfEmp.php?id='.$value->getId_Empresa().'" ><img src= "../'.$value->getImagenPerfil().'"  style="width:100%"></a>';
           echo ' <p class="burbuja" id="btitulo"> '. $value->getNombre(). '</p>';
           echo '<p class="burbuja"> '. $value->getFase(). '</p>';
           echo '<p class="burbuja"> '. $value->getLocalizacion(). '</p>';

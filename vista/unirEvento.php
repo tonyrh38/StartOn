@@ -51,7 +51,7 @@ require_once ("../logica/SA_Eventos.php");
 			//comprobar si esa persona ya estaba apuntada
 			//comprobacion(evento, persona)
 
-			echo '<img src= "/ProyectoStartOn/img/'.$transfer->getImagenEvento().'"  style="width:100%">';
+			echo '<img src= "../img/'.$transfer->getImagenEvento().'"  style="width:100%">';
 			echo "<p class ='burbuja'>Plazas: ".$SA->usersRemainingEvent($transfer->getNombre())."/".$transfer->getCantidad()."</p>";
 			if(isset($_SESSION['login']) && $_SESSION['login'] == true && isset($_SESSION['id_usuario'])){
 				$_SESSION["nombre_evento_apuntado"]= $transfer->getNombre();

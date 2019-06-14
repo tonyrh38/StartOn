@@ -41,7 +41,6 @@ require_once ("../logica/SA_Usuario.php");
 		}
 	?>
 	<?php require("common/header.php")?>
-
 			<div id="perfil">
 				<div id="card">
 					<?php
@@ -51,28 +50,28 @@ require_once ("../logica/SA_Usuario.php");
 					echo " <p class ='burbuja'> ".$transferUser->getLocalizacion()." </p>";
 					?>
 				</div>
+				<div class="row">
+					<div id="card">
+						<p class ='burbuja' id='btitulo'>Carta de presentacion</p>
+						<?php
+							echo "<p class='burbuja' id='btexto'> ".$transferUser->getCartaPresentacion()." </p>";
+						?>
+					</div>
 
-				<div id="card">
-					<p class ='burbuja' id='btitulo'>Carta de presentacion</p>
-					<?php
-						echo "<p class='burbuja' id='btexto'> ".$transferUser->getCartaPresentacion()." </p>";
-					?>
-				</div>
+					<div id="card">
+						<p class ='burbuja' id='btitulo'>Experiencia</p>
+						<?php
+							echo "<p class='burbuja' id='btexto'> ".$transferUser->getExperiencia()." </p>";
+						?>
+					</div>
 
-				<div id="card">
-					<p class ='burbuja' id='btitulo'>Experiencia</p>
-					<?php
-						echo "<p class='burbuja' id='btexto'> ".$transferUser->getExperiencia()." </p>";
-					?>
+					<div id="card">
+						<p class ='burbuja' id='btitulo'>Pasiones</p>
+						<?php
+							echo "<p class='burbuja' id='btexto'> ".$transferUser->getPasiones()." </p>";
+						?>
+					</div>
 				</div>
-
-				<div id="card">
-					<p class ='burbuja' id='btitulo'>Pasiones</p>
-					<?php
-						echo "<p class='burbuja' id='btexto'> ".$transferUser->getPasiones()." </p>";
-					?>
-				</div>
-				<div class="row"></div>
 				<?php
 					if(isset($_SESSION['login']) && $_SESSION['login'] == true && isset($_SESSION['id_usuario']))
 						if($_SERVER["REQUEST_METHOD"] !== "GET" || ($_SERVER["REQUEST_METHOD"] == "GET" && (!$_GET || $_GET["id"]==$_SESSION['id_usuario']))){

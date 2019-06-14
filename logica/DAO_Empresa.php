@@ -147,17 +147,20 @@ class DAO_Empresa implements DAO_Interface {
 	    //Buscamos en la base de datos el posble gmail
 	    $consul = sprintf("SELECT * FROM empresa WHERE email = '$gmail' ORDER BY nombre");
 	    $consul2= sprintf("SELECT * FROM usuario WHERE email = '$gmail' ORDER BY nombre");
-	    $res = $db->query($consul);
-	    $res2= $db->query($consul2);
+	    $res = mysqli_query($db, $consul);
+	    $res2= mysqli_query($db, $consul2);
     //Si la consulta fuese tan correcta
-	  if ($mysqli_num_rows($res) != 0){
+	  if (mysqli_num_rows($res) != 0){
 	  		$empresa = mysqli_fetch_assoc($res);
 			$transfer = new empresaTransfer($empresa["ID_Empresa"],$empresa["Nombre"],$empresa["password"],$empresa["email"], $empresa["Localizacion"], $empresa["Sector"],
         	$empresa["Oficio"], $empresa["Fase"], $empresa["Img_Empresa"], $empresa["cartaPresentacion"], $empresa["buscamos"], $empresa["ofrecemos"], $empresa["numLikes"]);
 			return $transfer;
 		}
-		elseif ($mysqli_num_rows($res2) != 0) {
-			return 1;
+		elseif (mysqli_num_rows($res2) != 0) {
+			$usuario = mysqli_fetch_assoc($res2);
+			$transfer = new TransferUsuario($usuario["ID_usuario"],$usuario["Nombre"],$usuario["Apellidos"],
+      		$usuario["password"], $usuario["email"], $usuario["Localizacion"], $usuario["Experiencia"], $usuario["Pasiones"], $usuario["CartaPresentacion"], $usuario["Img_Perfil"], $usuario["Oficio"], $usuario["Curriculum"]);
+			return $transfer;
 		}
 		return null;
 	}
