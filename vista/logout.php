@@ -7,6 +7,7 @@ require_once ("../includes/config.php");
  ?>
 <html>
 <head>
+	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="css/common.css">
 	<title>Start On</title>
 </head>
@@ -19,7 +20,7 @@ require_once ("../includes/config.php");
 			</div>
 		</div>
 		<div class="row">
-			Saliste de la sesion. Te echaremos de menos
+			Saliste de la sesión. Te echaremos de menos.
 		</div>
 		<?php require("common/footer.php")?>
 </body>

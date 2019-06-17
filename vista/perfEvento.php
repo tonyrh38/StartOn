@@ -64,8 +64,8 @@ if(isset($_POST['delete'])){
 		}
 
 	?>
-	<div id="container"">
-		<div id="perfil" style='height:1000px;'>
+	<div id="container">
+		<div id="perfil">
 			<div id="card">
 				<?php
 				echo '<img src= "../img/'.$transfer->getImagenEvento().'"  style="width:100%">';
@@ -77,7 +77,7 @@ if(isset($_POST['delete'])){
 
 				$idSess = $_GET["id"];
 				if(isset($_SESSION['login']) && $_SESSION['login'] == true && isset($_SESSION['id_usuario'])){
-					echo '<a  id= "botonSubmit" class ="botonGuay" href="unirEvento.php?id='.$transfer->getNombre().'" >';
+					echo '<a  class ="botonGuay" href="unirEvento.php?id='.$transfer->getNombre().'" >';
 					if(!$SA->existsUserEvent($_SESSION['id_usuario'],$transfer->getNombre()))
 						echo '¡Apuntate!</a>';
 					else
@@ -99,7 +99,7 @@ if(isset($_POST['delete'])){
 			echo '<div style="margin-top:80px">';
 
 			if($commentList == null){
-				echo '<p class="burbuja"> No existen comentarios para este evento </p>';
+				echo '<div class="burbuja" style="float:left"> No existen comentarios para este evento </div>';
 			}
 			else{
 			$SAuser = SA_Usuario::getInstance();

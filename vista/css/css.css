@@ -240,10 +240,8 @@ img{
   border: 0px;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   border-radius: 20px;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  margin-left: 3px;
-  margin-right: 3px;
+  padding: 4px;
+  margin: 4px;
 }
 #bcoment{
   float:left;

@@ -12,7 +12,7 @@ require_once ("../logica/SA_Usuario.php");
 	<meta charset="utf-8">
 </head>
 <body>
-    			<?php require("common/header.php")?>
+    <?php require("common/header.php")?>
 	<div id="container">
 			<div class="row">
 				<?php
@@ -20,20 +20,19 @@ require_once ("../logica/SA_Usuario.php");
 					$email = test_input($_POST["email"]);
 					$password = sha1(md5(test_input($_POST["password"])));
 
-					//if($_REQUEST["mode"] == "usuario"){
-						$SA = SA_Usuario::getInstance();
-						$transfer = new TransferUsuario("","","",$password, $email,"", "" ,"" ,"","", "","");
-					 	$dir = $SA->login($transfer);
-					 if($dir !== "Error" && $dir!=="../index.php"){
-							header('Location: '.$dir);
-					 	}
-					  else{
+					$SA = SA_Usuario::getInstance();
+					$transfer = new TransferUsuario("","","",$password, $email,"", "" ,"" ,"","", "","");
+				 	$dir = $SA->login($transfer);
+					if($dir !== "Error" && $dir!=="../index.php"){
+						header('Location: '.$dir);
+					}
+					else{
 						$SA = SA_Empresa::getInstance();
 						$transfer = new empresaTransfer("","",$password, $email,"", "" ,"" ,"","","","","", "");
 						$dir = $SA->login($transfer);
-					 	if($dir !== "error"){
+					 	if($dir !== "Error"){
 							header('Location: '.$dir);
-					 	}
+						}
 					}
 				}
 
