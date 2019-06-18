@@ -9,29 +9,6 @@ require_once __DIR__.'/../includes/config.php';
 	<title>Start On</title>
 	<meta charset="utf-8">
 </head>
-<?php
-			/*if ($_SERVER["REQUEST_METHOD"] == "POST") {
-				$nombre = test_input($_POST["nombre"]);
-				$apellido = test_input($_POST["apellido"]);
-				$email = test_input($_POST["email"]);
-				$password = sha1(md5(test_input($_POST["password"])));
-				$password2 = sha1(md5(test_input($_POST["password2"])));
-				if($password !== $password2){
-					$dir = "Error";
-				}
-				else{
-					$SA = SA_Usuario::getInstance();
-
-					$transfer = new TransferUsuario("",$nombre,$apellido,$password, $email,"", "" ,"" ,"","img/usuario.png","","");
-	 		
-			 		$dir = $SA->createElement($transfer);
-			 	}
-			 	if($dir !== "Error"){
-					header('Location: '.$dir);
-			 	}
-			}
-			*/
-		?>
 <body>
   	<?php require("common/header.php")?>
 	<div id="container">
@@ -45,6 +22,5 @@ require_once __DIR__.'/../includes/config.php';
 			</div> 
 		</div>
 	</div>
-	<?php require("common/footer.php")?>
 </body>
 </html>

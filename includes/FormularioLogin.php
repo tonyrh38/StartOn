@@ -10,7 +10,7 @@ class FormularioLogin extends Form {
     protected function generaCamposFormulario($datos) {
         $email = '';
         if ($datos) {
-            $email = isset($datos['nombreUsuario']) ? test_input($datos['nombreUsuario']) : $email;
+            $email = isset($datos['nombreUsuario']) ? self::test_input($datos['nombreUsuario']) : $email;
         }
         $html = <<<EOF
         <label>E-mail:</label> <input class="campo-form" type="email" name="email" value="$email" >
@@ -26,12 +26,12 @@ EOF;
         $email = isset($datos['email']) ? self::test_input($datos['email']) : null;
                 
         if ( empty($email) ) {
-            $result[] = "El email no puede estar vacío";
+            $result[] = "El email no puede estar vacío. ";
         }
         
         $password = isset($datos['password']) ? self::test_input($datos['password']) : null;
         if ( empty($password) ) {
-            $result[] = "La contraseña no puede estar vacía.";
+            $result[] = "La contraseña no puede estar vacía. ";
         }
         else{
             $password = sha1(md5($password));
@@ -46,7 +46,7 @@ EOF;
                 $user = $SA->login($transfer);
                 if ( $user == null ){
                     // No se da pistas a un posible atacante
-                    $result[] = "El usuario o el password no coinciden";
+                    $result[] = "El usuario o el password no coinciden. ";
                 } else {
                     $_SESSION['login'] = true;
                     $_SESSION['id_empresa'] = $user->getId_Empresa();

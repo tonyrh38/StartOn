@@ -58,11 +58,6 @@ class SA_Usuario
      @return .php: pagina del usuario
   */
   function createElement($transfer) {
-	 //Comprobamos si algun campo esta vacio y notificamos el error si lo estae, estos campos son obligatorios para crear un nuevo elemento
-	 if (empty($transfer->getNombre()) || empty($transfer->getEmail()) || empty($transfer->getPassword()) || $transfer->getPassword() == self::CIFRADO) {
-		  return "Error";
-		}
-		//Si el tamaño del array es 0 significa que no tenemos errores en la lista
 		$userDAO = DAO_Usuario::getInstance();
     //Recibimos la lista de los elementos que tenemos en la base de datos
     if($userDAO->getElementByEmail($transfer->getEmail()) == NULL) {
@@ -73,12 +68,9 @@ class SA_Usuario
       $transfer->setId_Usuario($this->generateId($elements[$size-1]->getId_Usuario()));
       //Añadimos el elemento a la base de datos a traves del DAO
 			$prueba = $userDAO->createElement($transfer);
-			$_SESSION['id_usuario'] =$transfer->getId_Usuario();
-  		$_SESSION['login'] = true;
-  		$_SESSION['nombre'] = $transfer->getNombre();
-		  return "perfUser.php";
+		  return $transfer;
     }
-    return "Error";
+    return null;
   }
 
   /**Esta funcion se encarga de logear un usuario a traves del numero del tamaño

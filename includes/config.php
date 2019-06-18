@@ -7,8 +7,8 @@ require_once __DIR__.'/Aplicacion.php';
  */
 define('BD_HOST', 'localhost');
 define('BD_NAME', 'startondb');
-define('BD_USER', 'root');
-define('BD_PASS', '');
+define('BD_USER', 'adminStartOn');
+define('BD_PASS', '1234');
 
 /**
  * Configuración del soporte de UTF-8, localización (idioma y país) y zona horaria
