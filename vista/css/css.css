@@ -5,29 +5,27 @@
 		· el pie de pagina (#footer)
 		· clases comunes a todas las paginas (.text,etc)
 */
+
+/*
+  Modificaciones generales
+*/
 * {
   box-sizing: border-box;
 }
-html, body{
-  height:100%;
-  margin:0px;
-
-  display: flex;
-  flex-direction: column;
-}
-#espacio{
-  margin-top: 250px;
-}
-
 body{
-	background-image: url('../../img/BackGround2.png');
+  height:100%;
+  margin:0px;  
+  font-family: arial;
+	background-image: url('../../resources/img/info/background.png');
 	background-repeat: no-repeat;
 	background-attachment: fixed;
-  font-family: arial;
 }
 
-/*logos*/
+/*
+  Logos
+*/
 #logo_inicio{
+  margin: 30px;
   padding: 30px;
   width: 50%;
   height: auto;
@@ -39,14 +37,12 @@ body{
   box-shadow: none;
 }
 
-.titulo{
-	font-size: 50px;
-	padding: 30px;
-  font-family: arial;
-}
 /*
 	Estilo de la barra de navegacion
 */
+#cabecera {
+  width: 100%;
+}
 ul {
   list-style-type: none;
   margin: 0px;
@@ -55,14 +51,6 @@ ul {
   background-color: #c9c9ff;
   border: 0px;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-}
-#cabecera {
-  width: 100%;
-  position: fixed;
-}
-#container{
-  margin-top: 0px;
-  margin-bottom: 60px;
 }
 li {
   float: left;
@@ -81,30 +69,45 @@ li a:hover {
   border-radius: 0px;
 }
 
-.column{
-	float: left;
-	width: 50%;
+/*
+  Estilo del footer
+*/
+.footer {
+  width:  100%;
+  height: 30px;
+  padding: 5px;
+  background-color: #aaaaaa;
+  text-align:center;
 }
 
+/*
+  Características de la organización mediante rows
+*/
 .row{
 	background-color: none;
 	text-align: center;
 }
-
-.titulo{
-	background-color: none;
-	text-align: center;
-  margin-top: 30px;
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
 }
-.tituloIndx{
-  font-size: 50px;
-  margin-top: 150px;
-  margin-bottom: -30px;
-  font-family: arial;
+
+/*
+  Organización del index
+*/
+.rowind{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 75px;
+}
+.tituloIndex{
+  margin: 20px;
   font-size: 70px;
   color: #777777;
 }
-.fraseIndx{
+.fraseIndex{
   font-size: 35px;
   float: left;
   width: 500px;
@@ -117,25 +120,43 @@ height: auto;
 float: left;
 border-radius: 20px;
 }
-.rowind{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 50px;
+
+/*
+  Configuración de elementos generales
+*/
+.titulo{
+  text-align: center;
+  margin: 20px;
+  padding: 30px;
+  font-size: 50px;
+}
+.column{
+  float: left;
+  width: 50%;
 }
 
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
+/*
+  Organización de la página de ayuda
+*/
+.ayudaCard {
+  margin: 30px;
+  padding: 8px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  border-radius: 10px;
+  background-color: #ffbdbd;
 }
 
 /*
 	Estilo de botones
 */
-.botonGuay {
-  border-radius: 20px;
-  border: 0px;
+#botonEmpresa{
+  background-color: #c9c9ff;
+}
+#botonUsuario{
+  background-color: #ffbdbd;
+}
+.botonGuay{
+  border-radius: 10px;
   display: inline-block;
   padding: 8px;
   color: black;
@@ -147,10 +168,6 @@ border-radius: 20px;
   background-color: white;
   margin-left: 10px;
 }
-#botonSubmit{
-  width: 15%;
-
-}
 .botonGuay:hover{
   border-style: solid;
   border-width: 0.5px;
@@ -158,30 +175,12 @@ border-radius: 20px;
   box-shadow: 0 6px 10px 0 rgba(0,0,0,0.3);
   border-color: #aaaaaa;
 }
-#botonSubmitE{
+.botonSubmit{
   padding: 2px;
   width: 100px;
   background-color: #c9c9ff;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  border-radius: 20px;
-}
-#botonSubmitU{
-  padding: 2px;
-  width: 100px;
-  background-color: #c9c9ff;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  border-radius: 20px;
-}
-
-#Botonempresa{
-  background-color: #c9c9ff;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  border-radius: 20px;
-}
-#Botonusuario{
-  background-color: #ffbdbd;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  border-radius: 20px;
+  border-radius: 10px;
 }
 #botonHeader{
   background-image:url('../img/Logo2.png');
@@ -196,7 +195,9 @@ a {
   border-radius: 20px;
   margin: -3px;
 }
+/*
 
+*/
 img{
  border-radius: 20px;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -216,22 +217,7 @@ img{
   font-family: 'arial', arial;
   box-shadow: 0 1px 3px 0 rgba(0,0,0,0.2);
 }
-/*
-  Estilo del footer
-*/
 
-.footer {
-  background-color: #aaaaaa;
-  box-sizing: border-box;
-  position: relative;
-  position:fixed;
-  margin: 0px;
-  height: 30px;
-  width:  100%;
-  bottom: 0px;
-  text-align:center;
-  padding: 5px;
-}
 /*
  perfiles
 */
@@ -287,15 +273,6 @@ div #card img {
   height: auto;
   border-radius: 20px;
 }
-/*
-@supports(object-fit: cover){
-    div #card img{
-      height: 300px;
-      object-fit: cover;
-      object-position: center top;
-    }
-}
-*/
 
 #FotoPerfil{
     border-radius: 20px;
@@ -367,15 +344,7 @@ tarjetas ayuda
 #botonRojo{
   background-color: red;
 }
-.ayudaCard {
-  padding: 5px;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  width: 1418px;;
-  border-radius: 20px;
-  background-color: #ffbdbd;
-  text-align: center;
-  margin: 50px;
-}
+
 
 .conocenosCard {
   padding: 5px;

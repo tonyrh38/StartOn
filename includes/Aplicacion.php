@@ -1,5 +1,7 @@
 <?php
 
+namespace es\ucm\fdi\aw;
+
 /**
  * Clase que mantiene el estado global de la aplicación.
  */
@@ -102,10 +104,13 @@ class Aplicacion
 	public function conexionBd()
 	{
 	    $this->compruebaInstanciaInicializada();
-		//if (! $this->conn ) {
+		if (! $this->conn ) {
 			$bdHost = $this->bdDatosConexion['host'];
+			$bdUser = $this->bdDatosConexion['user'];
+			$bdPass = $this->bdDatosConexion['pass'];
 			$bd = $this->bdDatosConexion['bd'];
-			$this->conn = new \mysqli($bdHost, "root", "",$bd);
+			
+			$this->conn = new \mysqli($bdHost, $bdUser, $bdPass, $bd);
 			if ( $this->conn->connect_errno ) {
 				echo "Error de conexión a la BD: (" . $this->conn->connect_errno . ") " . utf8_encode($this->conn->connect_error);
 				exit();
@@ -114,7 +119,7 @@ class Aplicacion
 				echo "Error al configurar la codificación de la BD: (" . $this->conn->errno . ") " . utf8_encode($this->conn->error);
 				exit();
 			}
-		//}
+		}
 		return $this->conn;
 	}
 }

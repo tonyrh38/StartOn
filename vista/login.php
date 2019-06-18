@@ -1,22 +1,18 @@
-<?php
-require_once ("../includes/config.php");
-require_once ("../logica/SA_Empresa.php");
-require_once ("../logica/SA_Usuario.php");
- ?>
+<?php 
+  require_once __DIR__.'/../includes/config.php';
+  require_once __DIR__.'/../includes/SA_Usuario.php';
+  require_once __DIR__.'/../includes/SA_Empresa.php';
+?>
 
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="css/common.css">
+	<link rel="stylesheet" type="text/css" href="css/css.css">
 	<title>Start On</title>
 	<meta charset="utf-8">
 </head>
-<body>
-    <?php require("common/header.php")?>
-	<div id="container">
-			<div class="row">
-				<?php
-				if ($_SERVER["REQUEST_METHOD"] == "POST") {
+<?php
+				/*if ($_SERVER["REQUEST_METHOD"] == "POST") {
 					$email = test_input($_POST["email"]);
 					$password = sha1(md5(test_input($_POST["password"])));
 
@@ -34,31 +30,27 @@ require_once ("../logica/SA_Usuario.php");
 							header('Location: '.$dir);
 						}
 					}
-				}
-
-				function test_input($data) {
-				  $data = trim($data);
-				  $data = stripslashes($data);
-				  $data = htmlspecialchars($data);
-				  return $data;
-				}
+				}*/
 				?>
-
-				<p class="titulo">Inicia sesión:</p>
-				<form method="post" action="login.php" class="form-consulta">
-				  <p>E-mail: <input type="email" name="email" value="" class="campo-form"></p>
-				  <p>Contraseña: <input type="password" name="password" value="" class="campo-form"></p>
-				 <!--<p> Iniciar sesión como:<p>  -->
-				 <!--<p> <input type="radio" name="mode" value ="usuario" checked> Usuario
-				  <input type="radio" name="mode" value ="empresa"> Empresa </p>-->
-				  <input  class ='botonGuay' type="submit" name="submit" value="Submit">
-          <p>¿No estas registrado?</p>
-          <p><a href="emp_signup.php" style="color:blue; font-size: 15px;" >Registro de empresa,</a>
-          <a href="usr_signup.php"  style="color: blue; font-size: 15px;">&nbsp&nbspRegistro de usuarios</a></p>
-		  		</form>
+<body>
+    <?php require("common/header.php")?>
+	<div id="container">		
+		<div class="row">
+			<p class="titulo">Inicia sesión:</p>
+			<div class="form-consulta">
+				<?php 
+					$form = new es\ucm\fdi\aw\FormularioLogin();
+					$form->gestiona();
+				?>
 			</div>
-
-			<?php require("common/footer.php")?>
 		</div>
+		<div class="row">
+			<p>¿No estas registrado?</p>
+          	<p>
+          		<a href="emp_signup.php" style="color:blue; font-size: 15px;" >Registro de empresa,</a>
+          		<a href="usr_signup.php"  style="color: blue; font-size: 15px;">&nbsp&nbspRegistro de usuarios</a>
+      		</p>	
+		</div>		
+	</div>
 </body>
 </html>
