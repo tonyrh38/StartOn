@@ -273,16 +273,8 @@ div #card img {
   height: auto;
   border-radius: 20px;
 }
-
 #FotoPerfil{
     border-radius: 20px;
-}
-div #perfil {
-  height: 100%;
-  padding: 8px;
-  float: left;
-  margin: auto;
-  text-align: center;
 }
 #Modperfil{
 margin:auto;

@@ -1,8 +1,8 @@
 <?php
+namespace es\ucm\fdi\aw;
 
-require_once("DAO_Interface.php");
-require_once("DAO_Empresa.php");
-class DAO_Like {
+class DAO_Like 
+{
 
     private static $instance = null;
 

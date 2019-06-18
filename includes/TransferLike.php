@@ -1,8 +1,11 @@
 <?php
-class transferLike {
+namespace es\ucm\fdi\aw;
+
+class TransferLike 
+{
 
 	private $id_empresa;
-  private $id_usuario;
+ 	private $id_usuario;
 
 	function __construct($id_empresa,$id_usuario){
 		$this->id_empresa = $id_empresa;

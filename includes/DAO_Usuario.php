@@ -25,8 +25,8 @@ class DAO_Usuario
 		$nombre=$transfer->getNombre();
 		$apellido=$transfer->getApellido();
 		$idUser=$transfer->getId_Usuario();
-		$email=$transfer->getEmail();
-		$password=$transfer->getPassword();
+		$Email=$transfer->getEmail();
+		$Password=$transfer->getPassword();
 		$imagen=$transfer->getImagenPerfil();
 		$localizacion=$transfer->getLocalizacion();
 		$pasiones=$transfer->getPasiones();
@@ -35,14 +35,7 @@ class DAO_Usuario
 		$experiencia=$transfer->getExperiencia();
 		$curriculum=$transfer->getCurriculum();
 
-		if($imagen == NULL)
-		{
-			$consulta="INSERT INTO usuario (ID_usuario, email, password, Nombre, Apellidos, Localizacion, Experiencia, Pasiones, CartaPresentacion, Img_Perfil, Oficio, Curriculum) VALUES('$idUser' ,'$email', '$password', '$nombre', '$apellido', '$localizacion', '$experiencia','$pasiones', '$cartaPresentacion', 'img/usuario.png', '$oficio', '$curriculum')";
-		}
-		else
-		{
-			$consulta="INSERT INTO usuario  (ID_usuario, email, password, Nombre, Apellidos, Localizacion, Experiencia, Pasiones, CartaPresentacion, Img_Perfil, Oficio, Curriculum) VALUES('$idUser' ,'$email', '$password', '$nombre', '$apellido', '$localizacion', '$experiencia' ,'$pasiones', '$cartaPresentacion', '$imagen', '$oficio', '$curriculum')";
-		}
+		$consulta="INSERT INTO usuario  (ID_usuario, Email, Password, Nombre, Apellidos, Localizacion, Experiencia, Pasiones, CartaPresentacion, Img_Perfil, Oficio, Curriculum) VALUES('$idUser' ,'$Email', '$Password', '$nombre', '$apellido', '$localizacion', '$experiencia' ,'$pasiones', '$cartaPresentacion', '$imagen', '$oficio', '$curriculum')";
 		return $conn->query($consulta);
 	}
 
@@ -54,7 +47,7 @@ class DAO_Usuario
 		$results = $conn->query($consulta);
 		if (mysqli_num_rows($results) == 1) {
 			$usuario = mysqli_fetch_assoc($results);
-			return new TransferUsuario($usuario["ID_usuario"],$usuario["Nombre"],$usuario["Apellidos"], $usuario["password"], $usuario["email"], $usuario["Localizacion"], $usuario["Experiencia"], $usuario["Pasiones"], $usuario["CartaPresentacion"], $usuario["Img_Perfil"], $usuario["Oficio"], $usuario["Curriculum"]);
+			return new TransferUsuario($usuario["ID_usuario"],$usuario["Nombre"],$usuario["Apellidos"], $usuario["Password"], $usuario["Email"], $usuario["Localizacion"], $usuario["Experiencia"], $usuario["Pasiones"], $usuario["CartaPresentacion"], $usuario["Img_Perfil"], $usuario["Oficio"], $usuario["Curriculum"]);
 		}
 		else {
 			return null;
@@ -66,20 +59,12 @@ class DAO_Usuario
 		$app = Aplicacion::getSingleton();
 		$conn = $app->conexionBd();
 		$consulta = sprintf("SELECT * FROM usuario WHERE Email= '%s' ORDER BY Nombre", $conn->real_escape_string($gmail));
-		$consulta2= sprintf("SELECT * FROM empresa WHERE Email = '%s' ORDER BY Nombre", $conn->real_escape_string($gmail));
 	    $res = $conn->query($consulta);
-	    $res2 = $conn->query($consulta2);
         //Si la consulta fuese tan correcta
 	     if (mysqli_num_rows($res) != 0){
 	     	$usuario = mysqli_fetch_assoc($res);
 			$transfer = new TransferUsuario($usuario["ID_usuario"],$usuario["Nombre"],$usuario["Apellidos"],
       		$usuario["Password"], $usuario["Email"], $usuario["Localizacion"], $usuario["Experiencia"], $usuario["Pasiones"], $usuario["CartaPresentacion"], $usuario["Img_Perfil"], $usuario["Oficio"], $usuario["Curriculum"]);
-			return $transfer;
-		}
-		elseif (mysqli_num_rows($res2) != 0) {
-			$empresa = mysqli_fetch_assoc($res2);
-			$transfer = new empresaTransfer($empresa["ID_Empresa"],$empresa["Nombre"],$empresa["password"],$empresa["email"], $empresa["Localizacion"], $empresa["Sector"],
-        	$empresa["Oficio"], $empresa["Fase"], $empresa["Img_Empresa"], $empresa["cartaPresentacion"], $empresa["buscamos"], $empresa["ofrecemos"], $empresa["numLikes"]);
 			return $transfer;
 		}
 		return null;
@@ -153,7 +138,7 @@ class DAO_Usuario
 			if ($query){
 				while($fila = mysqli_fetch_assoc($query)) {
 	        $transfer = new TransferUsuario($usuario["ID_usuario"],$usuario["Nombre"],$usuario["Apellidos"],
-	            $usuario["password"], $usuario["email"], $usuario["Localizacion"], $usuario["Experiencia"],
+	            $usuario["Password"], $usuario["Email"], $usuario["Localizacion"], $usuario["Experiencia"],
 	            $usuario["Pasiones"], $usuario["CartaPresentacion"], $usuario["Img_Perfil"], $usuario["Oficio"],
 	            $usuario["Curriculum"]);
 					array_push($lista,$transfer);

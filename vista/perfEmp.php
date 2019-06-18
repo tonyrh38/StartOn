@@ -1,27 +1,22 @@
-<!DOCTYPE html>
 <?php
-require_once ("../includes/config.php");
-require_once ("../logica/SA_Empresa.php");
-require_once ("../logica/SA_Like.php");
-require_once ("../logica/SA_Usuario.php");
-require_once ("../logica/transferLike.php");
+require_once __DIR__.'/../includes/config.php';
+
 ?>
-
+<!DOCTYPE html>
 <html>
-
 <head>
-	<link rel="stylesheet" type="text/css" href="css/common.css" />
+	<link rel="stylesheet" type="text/css" href="css/css.css" />
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 
 <body>
 	<?php require("common/header.php")?>
-	<<?php
+	<?php
 		if(isset($_POST['like'])){
 			$idusuario = htmlspecialchars($_SESSION['id_usuario']);
 			$idempresa = $_POST['like'];
 
-			$SAlikes = SA_Like::getInstance();
+			$SAlikes = es\ucm\fdi\aw\SA_Like::getInstance();
 			$SAlikes->insertLike($idempresa, $idusuario);
 		}
 
@@ -29,7 +24,7 @@ require_once ("../logica/transferLike.php");
 			$idusuario = htmlspecialchars($_SESSION['id_usuario']);
 			$idempresa = $_POST['dislike'];
 
-			$SAlikes = SA_Like::getInstance();
+			$SAlikes = es\ucm\fdi\aw\SA_Like::getInstance();
 			$SAlikes->deleteLike($idempresa, $idusuario);
 		}
 	 ?>
@@ -37,17 +32,17 @@ require_once ("../logica/transferLike.php");
 		if(isset($_SESSION['login']) && $_SESSION['login'] == true && isset($_SESSION['id_empresa'])){
 			if($_SERVER["REQUEST_METHOD"] !== "GET" || ($_SERVER["REQUEST_METHOD"] == "GET" && (!$_GET || $_GET["id"]==$_SESSION['id_empresa']))){
 				$id = $_SESSION['id_empresa'];
-				$SA = SA_Empresa::getInstance();
-				$SAlikes = SA_Like::getInstance();
-				$SAUsuario = SA_Usuario::getInstance();
+				$SA = es\ucm\fdi\aw\SA_Empresa::getInstance();
+				$SAlikes = es\ucm\fdi\aw\SA_Like::getInstance();
+				$SAUsuario = es\ucm\fdi\aw\SA_Usuario::getInstance();
 				$transfer = $SA->getElement($id);
 				$likesList = $SAlikes->getElementsByIdEmpresa($id);
 			}
 			else if($_SERVER["REQUEST_METHOD"] == "GET" && $_GET){
 			$id = htmlspecialchars($_GET["id"]);
-			$SA = SA_Empresa::getInstance();
-			$SAlikes = SA_Like::getInstance();
-			$SAUsuario = SA_Usuario::getInstance();
+			$SA = es\ucm\fdi\aw\SA_Empresa::getInstance();
+			$SAlikes = es\ucm\fdi\aw\SA_Like::getInstance();
+			$SAUsuario = es\ucm\fdi\aw\SA_Usuario::getInstance();
 
 			$transfer = $SA->getElement($id);
 			$likesList = $SAlikes->getElementsByIdEmpresa($id);
@@ -55,17 +50,17 @@ require_once ("../logica/transferLike.php");
 		}
 		else if($_SERVER["REQUEST_METHOD"] == "GET" && $_GET){
 			$id = htmlspecialchars($_GET["id"]);
-			$SA = SA_Empresa::getInstance();
-			$SAlikes = SA_Like::getInstance();
-			$SAUsuario = SA_Usuario::getInstance();
+			$SA = es\ucm\fdi\aw\SA_Empresa::getInstance();
+			$SAlikes = es\ucm\fdi\aw\SA_Like::getInstance();
+			$SAUsuario = es\ucm\fdi\aw\SA_Usuario::getInstance();
 
 			$transfer = $SA->getElement($id);
 			$likesList = $SAlikes->getElementsByIdEmpresa($id);
 		}else{
 			$id = htmlspecialchars($_GET["id"]);
-			$SA = SA_Empresa::getInstance();
-			$SAlikes = SA_Like::getInstance();
-			$SAUsuario = SA_Usuario::getInstance();
+			$SA = es\ucm\fdi\aw\SA_Empresa::getInstance();
+			$SAlikes = es\ucm\fdi\aw\SA_Like::getInstance();
+			$SAUsuario = es\ucm\fdi\aw\SA_Usuario::getInstance();
 
 			$transfer = $SA->getElement($id);
 			$likesList = $SAlikes->getElementsByIdEmpresa($id);

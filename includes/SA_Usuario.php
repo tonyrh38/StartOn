@@ -61,7 +61,6 @@ class SA_Usuario
 		$userDAO = DAO_Usuario::getInstance();
     //Recibimos la lista de los elementos que tenemos en la base de datos
     if($userDAO->getElementByEmail($transfer->getEmail()) == NULL) {
-      var_dump($userDAO->getElementByEmail($transfer->getEmail()));
       $elements = $userDAO->getAllElements();
       $size = sizeof($elements);
       //Generamos el id del nuevo usuario a partir del tamaño de la lista
@@ -142,7 +141,7 @@ class SA_Usuario
     $userObject = $userDAO->getElementByEmail($transfer->getEmail());
     //Se comprueba que la contraseña que recibimos en el transfer coincicide con el valor hasheado del transfer recibido por el DAO
     $password = $transfer->getPassword();
-    if($userObject == null || $password !== $userObject->getPassword() || !isset($userObject->getId_Usuario)){
+    if($userObject == null || $password !== $userObject->getPassword()){
       return null;
     }
     else{

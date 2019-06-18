@@ -39,12 +39,6 @@ class SA_Empresa
     @return .php: pagina de la empresa
   */
   function createElement($transfer) {
-    //comprobamos si algun campo esta vacio y notificamos el error si lo estae, estos campos son obligatorios para crear un nuevo elemento
-    //comprobamos si algun campo esta vacio y notificamos el error si lo estae, estos campos son obligatorios para crear un nuevo elemento
-		if (empty($transfer->getNombre()) || empty($transfer->getEmail()) || empty($transfer->getPassword()) || $transfer->getPassword() == self::CIFRADO) {
-			return "Error";
-		}
-		//Si el tamaño del array es 0 significa que no tenemos errores en la lista
 		$empDAO = DAO_Empresa::getInstance();
 		//Recibimos la lista de los elementos que tenemos en la base de datos
 		if($empDAO->getElementByEmail($transfer->getEmail()) == NULL) {
@@ -56,12 +50,9 @@ class SA_Empresa
 		  $transfer->setPassword($transfer->getPassword());
 		  //Añadimos el elemento a la base de datos a traves del DAO
 			$prueba = $empDAO->createElement($transfer);
-      $_SESSION['id_empresa'] =$transfer->getId_Empresa();
-      $_SESSION['login'] = true;
-      $_SESSION['nombre'] = $transfer->getNombre();
-    	return "perfEmp.php";
+    	return $transfer;
     }
-    return "Error";
+    return null;
   }
 
   /**Esta funcion se encarga de logear un usuario a traves del numero del tamaño
@@ -157,11 +148,11 @@ class SA_Empresa
     $empObject = $empDAO->getElementByEmail($transfer->getEmail());
     //Se comprueba que la contraseña que recibimos en el transfer coincicide con el valor hasheado del transfer recibido por el DAO
     $password = $transfer->getPassword();
-    if($empObject == null || $password !== $empObject->getPassword() || !isset($empObject->getId_Empresa)){
+    if($empObject == null || $password !== $empObject->getPassword()){
     	return null;
     }
     else{
-    	return empObject;
+    	return $empObject;
     }
   }
   function actualizarNumLikes($id, $valor){
