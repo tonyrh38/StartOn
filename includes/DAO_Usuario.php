@@ -1,24 +1,23 @@
 <?php
+namespace es\ucm\fdi\aw;
 
-require_once("DAO_Interface.php");
-
-
-class DAO_Usuario implements  DAO_Interface {
-
+class DAO_Usuario
+{
+	//ATRIBUTOS
     private static $instance = null;
     private $db;
     //Evitamos asi la contruccion de la clase
     private function __construct() {
     }
     //Para acceder a la instacia de la clase
-     public static function getInstance() {
+    public static function getInstance() {
         if (self::$instance == null) {
           self::$instance = new DAO_Usuario();
         }
         return self::$instance;
-      }
+    }
 
-	//METODOS
+	//MÉTODOS
 	public function createElement($transfer){//crea usuario
 		$app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
@@ -46,28 +45,44 @@ class DAO_Usuario implements  DAO_Interface {
 		}
 		return $conn->query($consulta);
 	}
+
 //--------------------------
 	public function getElementById($id){
 		$app = Aplicacion::getSingleton();
-		$db = $app->conexionBd();
-		$consulta = "SELECT * FROM usuario WHERE ID_usuario='$id'";//consulta sql
-		$results = mysqli_query($db, $consulta);
-
-		if (mysqli_num_rows($results) == 1) {  //si se encuentra la fila, el usuario y contraseña son correctas
+		$conn = $app->conexionBd();
+		$consulta = sprintf("SELECT * FROM usuario WHERE ID_usuario= '%s'", $conn->real_escape_string($id));
+		$results = $conn->query($consulta);
+		if (mysqli_num_rows($results) == 1) {
 			$usuario = mysqli_fetch_assoc($results);
-			//cambio
-			if($usuario["Img_Perfil"] == NULL)	{
-				return new TransferUsuario($usuario["ID_usuario"],$usuario["Nombre"],$usuario["Apellidos"],
-        $usuario["password"], $usuario["email"], $usuario["Localizacion"], $usuario["Experiencia"], $usuario["Pasiones"], $usuario["CartaPresentacion"], $usuario["Img_Perfil"], $usuario["Oficio"], $usuario["Curriculum"]);
-			}
-			else{
-				return new TransferUsuario($usuario["ID_usuario"],$usuario["Nombre"],$usuario["Apellidos"],
-        $usuario["password"], $usuario["email"], $usuario["Localizacion"], $usuario["Experiencia"], $usuario["Pasiones"], $usuario["CartaPresentacion"], $usuario["Img_Perfil"], $usuario["Oficio"], $usuario["Curriculum"]);
-		}
+			return new TransferUsuario($usuario["ID_usuario"],$usuario["Nombre"],$usuario["Apellidos"], $usuario["password"], $usuario["email"], $usuario["Localizacion"], $usuario["Experiencia"], $usuario["Pasiones"], $usuario["CartaPresentacion"], $usuario["Img_Perfil"], $usuario["Oficio"], $usuario["Curriculum"]);
 		}
 		else {
-			return null;//NULL
+			return null;
 		}
+	}
+
+//--------------------------
+	public function getElementByEmail($gmail) {
+		$app = Aplicacion::getSingleton();
+		$conn = $app->conexionBd();
+		$consulta = sprintf("SELECT * FROM usuario WHERE Email= '%s' ORDER BY Nombre", $conn->real_escape_string($gmail));
+		$consulta2= sprintf("SELECT * FROM empresa WHERE Email = '%s' ORDER BY Nombre", $conn->real_escape_string($gmail));
+	    $res = $conn->query($consulta);
+	    $res2 = $conn->query($consulta2);
+        //Si la consulta fuese tan correcta
+	     if (mysqli_num_rows($res) != 0){
+	     	$usuario = mysqli_fetch_assoc($res);
+			$transfer = new TransferUsuario($usuario["ID_usuario"],$usuario["Nombre"],$usuario["Apellidos"],
+      		$usuario["Password"], $usuario["Email"], $usuario["Localizacion"], $usuario["Experiencia"], $usuario["Pasiones"], $usuario["CartaPresentacion"], $usuario["Img_Perfil"], $usuario["Oficio"], $usuario["Curriculum"]);
+			return $transfer;
+		}
+		elseif (mysqli_num_rows($res2) != 0) {
+			$empresa = mysqli_fetch_assoc($res2);
+			$transfer = new empresaTransfer($empresa["ID_Empresa"],$empresa["Nombre"],$empresa["password"],$empresa["email"], $empresa["Localizacion"], $empresa["Sector"],
+        	$empresa["Oficio"], $empresa["Fase"], $empresa["Img_Empresa"], $empresa["cartaPresentacion"], $empresa["buscamos"], $empresa["ofrecemos"], $empresa["numLikes"]);
+			return $transfer;
+		}
+		return null;
 	}
 
 //--------------------------
@@ -81,8 +96,9 @@ class DAO_Usuario implements  DAO_Interface {
 			return false;
 		}
 	}
+
 //--------------------------
-public function updateElement($id, $campo, $nuevoValor) {
+	public function updateElement($id, $campo, $nuevoValor) {
 		$app = Aplicacion::getSingleton();
 		$db = $app->conexionBd();
 		if($campo == "fotoPerfil")
@@ -102,10 +118,10 @@ public function updateElement($id, $campo, $nuevoValor) {
 
 		$consulta="UPDATE usuario SET ".$campo." = '".$nuevoValor."' WHERE ID_usuario = '".$id."'";
 		$res = mysqli_query($db, $consulta) ? false : true;
-    return $res;
+    	return $res;
 	}
 
-    //--------------------------
+//--------------------------
 	public function getAllElements(){
 		$app = Aplicacion::getSingleton();
 		$db = $app->conexionBd();
@@ -117,7 +133,7 @@ public function updateElement($id, $campo, $nuevoValor) {
 		if ($query) {
 			while($fila=mysqli_fetch_assoc($query)){
         $transfer = new TransferUsuario($fila["ID_usuario"],$fila["Nombre"],$fila["Apellidos"],
-        $fila["password"], $fila["email"], $fila["Localizacion"], $fila["Experiencia"], $fila["Pasiones"], $fila["CartaPresentacion"], $fila["Img_Perfil"], $fila["Oficio"], $fila["Curriculum"]);
+        $fila["Password"], $fila["Email"], $fila["Localizacion"], $fila["Experiencia"], $fila["Pasiones"], $fila["CartaPresentacion"], $fila["Img_Perfil"], $fila["Oficio"], $fila["Curriculum"]);
 
 				array_push($lista,$transfer);
 			}
@@ -125,53 +141,26 @@ public function updateElement($id, $campo, $nuevoValor) {
 		return empty($lista) ? null : $lista;
 	}
 
-	/**Esta funcion se encarga de buscar un elemento en la base de datos a traves del campo gmail
-	@param gmail: recibe un string del tipo email
-	@return id: devuelve un transfer referenciado a ese gmail o un objeto nul
-	*/
-	public function getElementByEmail($gmail) {
-	   $app = Aplicacion::getSingleton();
-	   $conn = $app->conexionBd();
-	    //Buscamos en la base de datos el posble gmail
+//--------------------------
+  	public function getAllElementsById($id) {
+	    $app = Aplicacion::getSingleton();
+			$db = $app->conexionBd();
+			$lista= array();
 
-	     $consulta = sprintf("SELECT * FROM usuario WHERE email = '$gmail' ORDER BY nombre");
-	     $consulta2= sprintf("SELECT * FROM empresa WHERE email = '$gmail' ORDER BY nombre");
-	     $res = mysqli_query($conn, $consulta);
-	     $res2 = mysqli_query($conn, $consulta2);
-        //Si la consulta fuese tan correcta
-	     if (mysqli_num_rows($res) != 0){
-	     	$usuario = mysqli_fetch_assoc($res);
-			$transfer = new TransferUsuario($usuario["ID_usuario"],$usuario["Nombre"],$usuario["Apellidos"],
-      		$usuario["password"], $usuario["email"], $usuario["Localizacion"], $usuario["Experiencia"], $usuario["Pasiones"], $usuario["CartaPresentacion"], $usuario["Img_Perfil"], $usuario["Oficio"], $usuario["Curriculum"]);
-			return $transfer;
-		}
-		elseif (mysqli_num_rows($res2) != 0) {
-			$empresa = mysqli_fetch_assoc($res2);
-			$transfer = new empresaTransfer($empresa["ID_Empresa"],$empresa["Nombre"],$empresa["password"],$empresa["email"], $empresa["Localizacion"], $empresa["Sector"],
-        	$empresa["Oficio"], $empresa["Fase"], $empresa["Img_Empresa"], $empresa["cartaPresentacion"], $empresa["buscamos"], $empresa["ofrecemos"], $empresa["numLikes"]);
-			return $transfer;
-		}
-		return NULL;
-	}
-  public function getAllElementsById($id) {
-    $app = Aplicacion::getSingleton();
-		$db = $app->conexionBd();
-		$lista= array();
+			$consul = "SELECT * FROM usuario ORDER BY $id";
+			$query = mysqli_query($db, $consul);
 
-		$consul = "SELECT * FROM usuario ORDER BY $id";
-		$query = mysqli_query($db, $consul);
-
-		if ($query){
-			while($fila = mysqli_fetch_assoc($query)) {
-        $transfer = new TransferUsuario($usuario["ID_usuario"],$usuario["Nombre"],$usuario["Apellidos"],
-            $usuario["password"], $usuario["email"], $usuario["Localizacion"], $usuario["Experiencia"],
-            $usuario["Pasiones"], $usuario["CartaPresentacion"], $usuario["Img_Perfil"], $usuario["Oficio"],
-            $usuario["Curriculum"]);
-				array_push($lista,$transfer);
+			if ($query){
+				while($fila = mysqli_fetch_assoc($query)) {
+	        $transfer = new TransferUsuario($usuario["ID_usuario"],$usuario["Nombre"],$usuario["Apellidos"],
+	            $usuario["password"], $usuario["email"], $usuario["Localizacion"], $usuario["Experiencia"],
+	            $usuario["Pasiones"], $usuario["CartaPresentacion"], $usuario["Img_Perfil"], $usuario["Oficio"],
+	            $usuario["Curriculum"]);
+					array_push($lista,$transfer);
+				}
 			}
-		}
-    return empty($lista) ? null : $lista;
-  }
+	    return empty($lista) ? null : $lista;
+	}
 
 }
 ?>

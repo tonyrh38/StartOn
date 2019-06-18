@@ -29,23 +29,35 @@ EOF;
             $result[] = "El email no puede estar vacío";
         }
         
-        $password = isset($datos['password']) ? sha1(md5(self::test_input($datos['password']))) : null;
+        $password = isset($datos['password']) ? self::test_input($datos['password']) : null;
         if ( empty($password) ) {
             $result[] = "La contraseña no puede estar vacía.";
         }
-        
+        else{
+            $password = sha1(md5($password));
+        }
         if (count($result) === 0) {
             $SA = SA_Usuario::getInstance();
             $transfer = new TransferUsuario("","","",$password, $email,"", "" ,"" ,"","", "","");
-            $id = $SA->login($transfer);
-            if ( ! $usuario ) {
-                // No se da pistas a un posible atacante
-                $result[] = "El usuario o el password no coinciden";
+            $user = $SA->login($transfer);
+            if ( $user == null ) {
+                $SA = SA_Empresa::getInstance();
+                $transfer = new TransferEmpresa("","",$password, $email,"", "" ,"" ,"","","","","", "");
+                $user = $SA->login($transfer);
+                if ( $user == null ){
+                    // No se da pistas a un posible atacante
+                    $result[] = "El usuario o el password no coinciden";
+                } else {
+                    $_SESSION['login'] = true;
+                    $_SESSION['id_empresa'] = $user->getId_Empresa();
+                    $_SESSION['nombre'] = $user->getNombre();
+                    $result = 'perfEmp.php';
+                }
             } else {
                 $_SESSION['login'] = true;
-                $_SESSION['nombre'] = $nombreUsuario;
-                $_SESSION['esAdmin'] = strcmp($usuario->rol(), 'admin') == 0 ? true : false;
-                $result = 'index.php';
+                $_SESSION['id_usuario'] = $user->getId_Usuario();
+                $_SESSION['nombre'] = $user->getNombre();
+                $result = 'perfUser.php';
             }
         }
         return $result;
@@ -58,3 +70,4 @@ EOF;
       return $data;
     }
 }
+?>

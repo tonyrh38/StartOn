@@ -1,5 +1,7 @@
 <?php
-class empresaTransfer {
+namespace es\ucm\fdi\aw;
+
+class TransferEmpresa {
 
 	private $id_empresa;
 	private $nombre;

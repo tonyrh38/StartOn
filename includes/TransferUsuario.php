@@ -1,4 +1,6 @@
 <?php
+namespace es\ucm\fdi\aw;
+
 class TransferUsuario {
 
 	private $id_usuario;

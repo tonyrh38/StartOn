@@ -1,10 +1,9 @@
 <?php
-//session_start();
-require("DAO_Usuario.php");
-require("TransferUsuario.php");
-require_once("SA_Interface.php") ;
+namespace es\ucm\fdi\aw;
 
-class SA_Usuario implements SA_Interface {
+class SA_Usuario 
+{
+
 
   //static const: valor que nos indica el tipo de cifrado
   //define("CIFRADO" , "67a74306b06d0c01624fe0d0249a570f4d093747);
@@ -35,11 +34,12 @@ class SA_Usuario implements SA_Interface {
 	 $userDAO = DAO_Usuario::getInstance();
 	 $res = $userDAO->getElementById($id);
     if($res  == NULL) {
-		  return "error";
+		  return "Error";
 		}
     else{
 		  return $res;
     }
+  }
 
   function existEmail($email){
     $userDAO = DAO_Usuario::getInstance();
@@ -93,89 +93,57 @@ class SA_Usuario implements SA_Interface {
     @param transfer: contiene un transfer de usuario
     @return errores: devuelve los errores cometidos en la ejecucion de las comprobaciones de la funcion
     @return .php: si el codigo es correcto se genera el perfil de usuario o si la verificación no ha sido incorrecta se carga la pagina principal*/
-	function updateElement($transfer) {
-	 //Se comprueba que el id del posible usuario no esta vacio
-			if (empty($transfer->getId_Usuario())) {
-			     return "Error";
-			}
-			//Realizamos la conexion
-			$userDAO = DAO_Usuario::getInstance();
-            //Comprobamos si el identificador del usuario existe en nuestra base de datos
-			if ($userDAO->getElementById($transfer->getId_Usuario())) {
-			    //Modificamos los diferentes campos de la base de datos que no esten incorrectos
-    				if (!empty($transfer->getNombre())) {
-    						$userDAO->updateElement($transfer->getId_Usuario(),"Nombre" ,$transfer->getNombre());
-                    }
-                    if (!empty($transfer->getApellido())) {
-    						$userDAO->updateElement($transfer->getId_Usuario(),"Apellidos" ,$transfer->getApellido());
-                    }
-					if (!empty($transfer->getPassword()) && $transfer->getPassword() != self::CIFRADO) {
-				        $userDAO->updateElement($transfer->getId_Usuario(),"password",$transfer->getPassword());
-					}
-					if (!empty($transfer->getEmail())) {
-				        $userDAO->updateElement($transfer->getId_Usuario(),"email" ,$transfer->getEmail());
-					}
-					if (!empty($transfer->getLocalizacion())) {
-				        $userDAO->updateElement($transfer->getId_Usuario(),"Localizacion" ,$transfer->getLocalizacion());
-					}
-					if (!empty($transfer->getExperiencia())) {
-				        $userDAO->updateElement($transfer->getId_Usuario(),"Experiencia" ,$transfer->getExperiencia());
-					}
-					if (!empty($transfer->getPasiones())) {
-				        $userDAO->updateElement($transfer->getId_Usuario(),"Pasiones" ,$transfer->getPasiones());
-					}
-					if (!empty($transfer->getCartaPresentacion())) {
-    					$userDAO->updateElement($transfer->getId_Usuario(),"cartaPresentacion" ,$transfer->getCartaPresentacion());
-					}
-	          		if (!empty($transfer->getImagenPerfil())) {
-    						$userDAO->updateElement($transfer->getId_Usuario(),"Img_Perfil" ,$transfer->getImagenPerfil());
-					}
-					if (!empty($transfer->getOficio())) {
-				        $userDAO->updateElement($transfer->getId_Usuario(),"Oficio" ,$transfer->getOficio());
-					}
-          if (!empty($transfer->getCurriculum())) {
-                $userDAO->updateElement($transfer->getId_Usuario(),"Curriculum" ,$transfer->getCurriculum());
-          }
-            return "perfUser.php";
-		    	}
-	  }
-
-   /**Esta funcion se encarga de eliminar un usuario de la base de datos
-    @param transfer: contiene un transfer de usuario
-    @return errores: devuelve un numero posterior al pasado por parametro
-    @return .php: si el codigo es correcto se genera el perfil de usuario o si la verificación no ha sido incorrecta se carga la pagina principal*/
-	function deleteElement($id){
-
-		//comprobamos si algun campo esta vacio y notificamos el error
-			if (empty($id)) {
+	function updateElement($transfer){
+    //Se comprueba que el id del posible usuario no esta vacio
+		if (empty($transfer->getId_Usuario())) {
 			return "Error";
+		}
+		//Realizamos la conexion
+		$userDAO = DAO_Usuario::getInstance();
+    //Comprobamos si el identificador del usuario existe en nuestra base de datos
+		if ($userDAO->getElementById($transfer->getId_Usuario())) {
+			//Modificamos los diferentes campos de la base de datos que no esten incorrectos
+    	if (!empty($transfer->getNombre())) {
+    		$userDAO->updateElement($transfer->getId_Usuario(),"Nombre" ,$transfer->getNombre());
+      }
+      if (!empty($transfer->getApellido())) {
+    		$userDAO->updateElement($transfer->getId_Usuario(),"Apellidos" ,$transfer->getApellido());
+      }
+			if (!empty($transfer->getPassword()) && $transfer->getPassword() != self::CIFRADO) {
+				$userDAO->updateElement($transfer->getId_Usuario(),"password",$transfer->getPassword());
 			}
-			//si no hay ningun error...
+			if (!empty($transfer->getEmail())) {
+				$userDAO->updateElement($transfer->getId_Usuario(),"email" ,$transfer->getEmail());
+			}
+			if (!empty($transfer->getLocalizacion())) {
+				$userDAO->updateElement($transfer->getId_Usuario(),"Localizacion" ,$transfer->getLocalizacion());
+			}
+		  if (!empty($transfer->getExperiencia())) {
+				$userDAO->updateElement($transfer->getId_Usuario(),"Experiencia" ,$transfer->getExperiencia());
+			}
+			if (!empty($transfer->getPasiones())) {
+				$userDAO->updateElement($transfer->getId_Usuario(),"Pasiones" ,$transfer->getPasiones());
+			}
+			if (!empty($transfer->getCartaPresentacion())) {
+    		$userDAO->updateElement($transfer->getId_Usuario(),"cartaPresentacion" ,$transfer->getCartaPresentacion());
+			}
+      if (!empty($transfer->getImagenPerfil())) {
+    		$userDAO->updateElement($transfer->getId_Usuario(),"Img_Perfil" ,$transfer->getImagenPerfil());
+			}
+			if (!empty($transfer->getOficio())) {
+				$userDAO->updateElement($transfer->getId_Usuario(),"Oficio" ,$transfer->getOficio());
+			}
+      if (!empty($transfer->getCurriculum())) {
+        $userDAO->updateElement($transfer->getId_Usuario(),"Curriculum" ,$transfer->getCurriculum());
+      }
+      return "perfUser.php";
+		}
+  }
 
-				$userDAO = DAO_Usuario::getInstance();
-				//Comprobamos si el id del posible usuario asignado en la base de datos
-				if ($userDAO->getElementById($id) != NULL) {
-				    //Eliminamos el usuario y si no ha producico error redirigimos al inicio
-					if ($userDAO->deleteElement($id)) {
-						return "logout.php";
-					}
-					//Si no se ha podido eliminar se comunica al usuario
-					else {
-							return "Error";
-					}
-				}
-				//Si ha pasado un id incorrecto se comunica al usuario
-				else {
-						return "Error";
-				}
-	}
-
-     /**Esta funcion se encarga de logear un usuario a traves del id
-      @param transfer: contiene un transfer con posibles datos de un usuario
-      @return errores: devuelve los errores cometidos en la ejecucion de las
-      comprobaciones de la funcion
-      @return .php: si el codigo es correcto se genera el perfil de usuario
-      o si la verificación no ha sido incorrecta se carga la pagina principal*/
+  /**Esta funcion se encarga de logear un usuario a traves del id
+  @param transfer: contiene un transfer con posibles datos de un usuario
+  @return transfer: si el codigo es correcto se devuelve el transfer del usuario
+  */
   function login($transfer) {
     $userDAO = DAO_Usuario::getInstance();
     //Devuelve un transfer que debe contenir el valor de un gmail, puede devolver un objeto nulo
@@ -183,17 +151,42 @@ class SA_Usuario implements SA_Interface {
     //Se comprueba que la contraseña que recibimos en el transfer coincicide con el valor hasheado del transfer recibido por el DAO
     $password = $transfer->getPassword();
     if($userObject == null || $password !== $userObject->getPassword() || !isset($userObject->getId_Usuario)){
-      return "Error";
+      return null;
     }
     else{
-    	//Si el usuario es correcto se crea una variable de sesión con el id del usuario y actualizamos la variabel logeado
-    	$_SESSION['id_usuario'] =$userObject->getId_Usuario();
-    	$_SESSION['login'] = true;
-    	$_SESSION['nombre'] = $userObject->getNombre();
-    	return "perfUser.php";
-    	}
+      return $userObject;
+    }
   }
-  public function getAllElementsById($id) {
+
+ /**Esta funcion se encarga de eliminar un usuario de la base de datos
+  @param transfer: contiene un transfer de usuario
+  @return errores: devuelve un numero posterior al pasado por parametro
+  @return .php: si el codigo es correcto se genera el perfil de usuario o si la verificación no ha sido incorrecta se carga la pagina principal*/
+	function deleteElement($id){
+    //comprobamos si algun campo esta vacio y notificamos el error
+      if (empty($id)) {
+        return "Error";
+      }
+  	//si no hay ningun error...
+		$userDAO = DAO_Usuario::getInstance();
+		//Comprobamos si el id del posible usuario asignado en la base de datos
+		if ($userDAO->getElementById($id) != NULL) {
+		  //Eliminamos el usuario y si no ha producico error redirigimos al inicio
+			if ($userDAO->deleteElement($id)) {
+				return "logout.php";
+			}
+			//Si no se ha podido eliminar se comunica al usuario
+			else {
+					return "Error";
+			}
+		}
+		//Si ha pasado un id incorrecto se comunica al usuario
+		else {
+				return "Error";
+		}
+  }
+
+  function getAllElementsById($id) {
     $userDAO = DAO_Usuario::getInstance();
     return 	$userDAO->getAllElements();
   }

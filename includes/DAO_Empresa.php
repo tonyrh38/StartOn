@@ -1,10 +1,8 @@
 <?php
+namespace es\ucm\fdi\aw;
 
-require_once("DAO_Interface.php");
-require_once("SA_Like.php");
-require_once("DAO_Eventos.php");
-
-class DAO_Empresa implements DAO_Interface {
+class DAO_Empresa 
+{
 
     private static $instance = null;
     private $db;
@@ -54,26 +52,49 @@ class DAO_Empresa implements DAO_Interface {
 //--------------------------
 	public function getElementById($id){
 		$app = Aplicacion::getSingleton();
-		$db = $app->conexionBd();
-		$consulta = "SELECT * FROM empresa WHERE ID_Empresa='$id'";//consulta sql
-		$results = mysqli_query($db, $consulta);
+		$conn = $app->conexionBd();
+		$consulta = sprintf("SELECT * FROM empresa WHERE ID_Empresa= '%s'", $conn->real_escape_string($id));
+		$results = $conn->query($consulta);
 
-		if (mysqli_num_rows($results) == 1) {  //si se encuentra la fila, el usuario y contraseña son correctas
+		if (mysqli_num_rows($results) == 1) {
 			$empresa = mysqli_fetch_assoc($results);
-			//cambio
 			if($empresa["Img_Empresa"] == NULL)	{
-					return new empresaTransfer($empresa["ID_Empresa"],$empresa["Nombre"],$empresa["password"],$empresa["email"], $empresa["Localizacion"], $empresa["Sector"], $empresa["Oficio"], $empresa["Fase"], $empresa["Img_Empresa"],
-          $empresa["cartaPresentacion"], $empresa["buscamos"], $empresa["ofrecemos"], $empresa["numLikes"]);
+				return new empresaTransfer($empresa["ID_Empresa"],$empresa["Nombre"],$empresa["Password"],$empresa["Email"], $empresa["Localizacion"], $empresa["Sector"], $empresa["Oficio"], $empresa["Fase"], $empresa["Img_Empresa"], $empresa["cartaPresentacion"], $empresa["buscamos"], $empresa["ofrecemos"], $empresa["numLikes"]);
 			}
 			else{
-			return new empresaTransfer($empresa["ID_Empresa"],$empresa["Nombre"],$empresa["password"],$empresa["email"], $empresa["Localizacion"], $empresa["Sector"],
-          	$empresa["Oficio"], $empresa["Fase"], $empresa["Img_Empresa"], $empresa["cartaPresentacion"], $empresa["buscamos"], $empresa["ofrecemos"], $empresa["numLikes"]);
+			return new empresaTransfer($empresa["ID_Empresa"],$empresa["Nombre"],$empresa["Password"],$empresa["Email"], $empresa["Localizacion"], $empresa["Sector"], $empresa["Oficio"], $empresa["Fase"], $empresa["Img_Empresa"], $empresa["cartaPresentacion"], $empresa["buscamos"], $empresa["ofrecemos"], $empresa["numLikes"]);
 			}
 		}
 		else {
-			return null;//NULL
+			return null;
 		}
 	}
+
+//--------------------------
+	public function getElementByEmail($gmail) {
+		$app = Aplicacion::getSingleton();
+		$conn = $app->conexionBd();
+	    //Buscamos en la base de datos el posble gmail
+	    $consul = sprintf("SELECT * FROM empresa WHERE email = '%s' ORDER BY Nombre", $conn->real_escape_string($gmail));
+	    $consul2= sprintf("SELECT * FROM usuario WHERE email = '%s' ORDER BY Nombre", $conn->real_escape_string($gmail));
+	    $res = $conn->query($consul);
+	    $res2= $conn->query($consul2);
+    	//Si la consulta fuese tan correcta
+	  	if (mysqli_num_rows($res) != 0){
+	  		$empresa = mysqli_fetch_assoc($res);
+			$transfer = new empresaTransfer($empresa["ID_Empresa"],$empresa["Nombre"],$empresa["Password"],$empresa["Email"], $empresa["Localizacion"], $empresa["Sector"],
+        	$empresa["Oficio"], $empresa["Fase"], $empresa["Img_Empresa"], $empresa["cartaPresentacion"], $empresa["buscamos"], $empresa["ofrecemos"], $empresa["numLikes"]);
+			return $transfer;
+		}
+		elseif (mysqli_num_rows($res2) != 0) {
+			$usuario = mysqli_fetch_assoc($res2);
+			$transfer = new TransferUsuario($usuario["ID_usuario"],$usuario["Nombre"],$usuario["Apellidos"],
+      		$usuario["Password"], $usuario["Email"], $usuario["Localizacion"], $usuario["Experiencia"], $usuario["Pasiones"], $usuario["CartaPresentacion"], $usuario["Img_Perfil"], $usuario["Oficio"], $usuario["Curriculum"]);
+			return $transfer;
+		}
+		return null;
+	}
+
 //--------------------------
   public function deleteElement($id){
     $app = Aplicacion::getSingleton();
@@ -135,34 +156,6 @@ class DAO_Empresa implements DAO_Interface {
 			}
 		}
     return empty($lista) ? null : $lista;
-	}
-
-    /**Esta funcion se encarga de buscar un elemento en la base de datos a traves del campo gmail
-	@param gmail: recibe un string del tipo email
-	@return id: devuelve un transfer referenciado a ese gmail o un objeto nul
-	*/
-	public function getElementByEmail($gmail) {
-		$app = Aplicacion::getSingleton();
-		$db = $app->conexionBd();
-	    //Buscamos en la base de datos el posble gmail
-	    $consul = sprintf("SELECT * FROM empresa WHERE email = '$gmail' ORDER BY nombre");
-	    $consul2= sprintf("SELECT * FROM usuario WHERE email = '$gmail' ORDER BY nombre");
-	    $res = mysqli_query($db, $consul);
-	    $res2= mysqli_query($db, $consul2);
-    //Si la consulta fuese tan correcta
-	  if (mysqli_num_rows($res) != 0){
-	  		$empresa = mysqli_fetch_assoc($res);
-			$transfer = new empresaTransfer($empresa["ID_Empresa"],$empresa["Nombre"],$empresa["password"],$empresa["email"], $empresa["Localizacion"], $empresa["Sector"],
-        	$empresa["Oficio"], $empresa["Fase"], $empresa["Img_Empresa"], $empresa["cartaPresentacion"], $empresa["buscamos"], $empresa["ofrecemos"], $empresa["numLikes"]);
-			return $transfer;
-		}
-		elseif (mysqli_num_rows($res2) != 0) {
-			$usuario = mysqli_fetch_assoc($res2);
-			$transfer = new TransferUsuario($usuario["ID_usuario"],$usuario["Nombre"],$usuario["Apellidos"],
-      		$usuario["password"], $usuario["email"], $usuario["Localizacion"], $usuario["Experiencia"], $usuario["Pasiones"], $usuario["CartaPresentacion"], $usuario["Img_Perfil"], $usuario["Oficio"], $usuario["Curriculum"]);
-			return $transfer;
-		}
-		return null;
 	}
 
   function getTopTres(){
