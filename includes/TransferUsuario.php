@@ -86,10 +86,7 @@ class TransferUsuario {
 
 	/**@return imagenPerfil: url value*/
 	public function getImagenPerfil(){
-		if($this->imagenPerfil==null)
-			return 'img/usuario.png';
-		else
-			return $this->imagenPerfil;
+		return $this->imagenPerfil;
 	}
 	/**@return curriculum: url value*/
 	public function getCurriculum(){

@@ -39,50 +39,73 @@ require_once __DIR__.'/../includes/config.php';
 <body>
 	<?php require("common/header.php")?>
 	<div id="container">
-		<div id="card">
+		<div class="left-column">
+			<div class="row">
+				<div id="card">
+					<?php
+						echo '<img src= "../'.$transferUser->getImagenPerfil().'"  style="width:100%">';
+						echo " <p class='burbuja' id='btitulo'> ".$transferUser->getNombre()."  ".$transferUser->getApellido()."</p>";
+						if (!empty($transferUser->getOficio())) {
+							echo " <p class ='burbuja'> ".$transferUser->getOficio()." </p>";
+						}
+						if (!empty($transferUser->getLocalizacion())) {
+							echo " <p class ='burbuja'> ".$transferUser->getLocalizacion()." </p>";
+						}
+					?>
+				</div>
+			</div>
 			<?php
-				echo '<img src= "../'.$transferUser->getImagenPerfil().'"  style="width:100%">';
-				echo " <p class='burbuja' id='btitulo'> ".$transferUser->getNombre()."  ".$transferUser->getApellido()."</p>";
-				echo " <p class ='burbuja'> ".$transferUser->getOficio()." </p>";
-				echo " <p class ='burbuja'> ".$transferUser->getLocalizacion()." </p>";
-			?>
-		</div>
-		<div class="row">
-			<div id="card">
-				<p class ='burbuja' id='btitulo'>Carta de presentacion</p>
-				<?php
-					echo "<p class='burbuja' id='btexto'> ".$transferUser->getCartaPresentacion()." </p>";
-				?>
-			</div>
-
-			<div id="card">
-				<p class ='burbuja' id='btitulo'>Experiencia</p>
-				<?php
-					echo "<p class='burbuja' id='btexto'> ".$transferUser->getExperiencia()." </p>";
-				?>
-			</div>
-
-			<div id="card">
-				<p class ='burbuja' id='btitulo'>Pasiones</p>
-				<?php
-					echo "<p class='burbuja' id='btexto'> ".$transferUser->getPasiones()." </p>";
-				?>
-			</div>
-		</div>
-		<?php
-			if(isset($_SESSION['login']) && $_SESSION['login'] == true && isset($_SESSION['id_usuario']))
-				if($_SERVER["REQUEST_METHOD"] !== "GET" || ($_SERVER["REQUEST_METHOD"] == "GET" && (!$_GET || $_GET["id"]==$_SESSION['id_usuario']))){
-					echo '	<div class="row">
+				if(isset($_SESSION['login']) && $_SESSION['login'] == true && isset($_SESSION['id_usuario']))
+					if($_SERVER["REQUEST_METHOD"] !== "GET" || ($_SERVER["REQUEST_METHOD"] == "GET" && (!$_GET || $_GET["id"]==$_SESSION['id_usuario']))){
+						echo '	<div class="row">
 								<a class ="botonGuay" href="mod_perf.php" >Modificar perfil</a>
-								<a class ="botonGuay" href="download.php?id='.$_SESSION["id_usuario"].'" >Currículum</a>
 							</div>';
+						if (!empty($transferUser->getCurriculum())) {
+							echo '	<div class="row">
+								<a class ="botonGuay" href="download.php?id='.$transferUser->getId_Usuario().'" >Currículum</a>
+							</div>';
+						}
 				}
 				else{
-					echo '	<div class="row">
+					if (!empty($transferUser->getCurriculum())) {
+							echo '	<div class="row">
 								<a class ="botonGuay" href="download.php?id='.$_GET["id"].'" >Currículum</a>
 							</div>';
+					}
 				}
-		?>
+			?>
+		</div>
+		<div class="right-column">
+			<?php
+				if (!empty($transferUser->getCartaPresentacion())) {
+					echo "
+					<div class='row'>
+						<div id='card'>
+							<p class ='burbuja' id='btitulo'>Carta de presentacion</p>
+							<p class='burbuja' id='btexto'> ".$transferUser->getCartaPresentacion()." </p>
+						</div>
+					</div>";
+				}
+				if (!empty($transferUser->getExperiencia())) {
+					echo "
+						<div class='row'>
+							<div id='card'>
+								<p class ='burbuja' id='btitulo'>Experiencia</p>
+								<p class='burbuja' id='btexto'> ".$transferUser->getExperiencia()." </p>
+							</div>
+						</div>";
+				}
+				if (!empty($transferUser->getPasiones())) {
+					echo "
+						<div class='row'>
+							<div id='card'>
+								<p class ='burbuja' id='btitulo'>Pasiones</p>
+								<p class='burbuja' id='btexto'> ".$transferUser->getPasiones()." </p>	
+							</div>
+						</div>";
+				}
+			?>
+		</div>
 	</div>	
 </body>
 </html>
