@@ -134,6 +134,10 @@ border-radius: 20px;
   float: left;
   width: 50%;
 }
+.half-column{
+  float: left;
+  width: 25%;
+}
 .left-column{
   float: left;
   width: 33%;
@@ -234,7 +238,7 @@ img{
   height: 150px;
 }
 .busqueda{
-  margin-top: -5px;
+  margin: 20px;
   width: 70%;
   border-radius: 10px;
   background-color: white;
@@ -286,21 +290,20 @@ div #card img {
   width: 66%;
 }
 #FotoPerfil{
-    border-radius: 10px;
+  border-radius: 10px;
 }
 #Modperfil{
-margin:auto;
-margin-top: 20px;
-margin-bottom: 45px;
-display: inline-block;
-text-align: center;
+  margin:auto;
+  margin-top: 20px;
+  margin-bottom: 45px;
+  display: inline-block;
+  text-align: center;
   width: 500px;
   background: #ffbdbd;
   padding: 25px;
   font-family: 'arial', arial;
-  border-radius: 20px;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);  
 }
 #ModperfilCampos{
   width:100%;
@@ -324,24 +327,6 @@ text-align: center;
 /*
 tarjetas ayuda
 */
-
-.rankingcard{
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  max-width: 920px;
-  height: 300px;
-  margin: 60px 30px 0px 30px;
-  padding: 8px;
-  border-radius: 20px;
-  display: inline-block;
-  text-align: center;
-  background-color: #ffbdbd;
-}
-.rankingcard #card{
-  padding: 10px;
-  max-width: 150px;
-  margin: 10px 10px 10px 10px;
-  max-height: 100PX;
-}
 #likeButton{
   background-color: green;
 }
@@ -372,8 +357,6 @@ extras
   font-family: 'Source Sans Pro', sans-serif;
   font-size:1em;
 }
-
-
 .row_content{
   display: flex;
   justify-content: center;

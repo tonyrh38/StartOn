@@ -55,20 +55,24 @@ require_once __DIR__.'/../includes/config.php';
 				</div>
 			</div>
 			<?php
-				if(isset($_SESSION['login']) && $_SESSION['login'] == true && isset($_SESSION['id_usuario']))
+				if(isset($_SESSION['login']) && $_SESSION['login'] == true && isset($_SESSION['id_usuario'])){
 					if($_SERVER["REQUEST_METHOD"] !== "GET" || ($_SERVER["REQUEST_METHOD"] == "GET" && (!$_GET || $_GET["id"]==$_SESSION['id_usuario']))){
-						echo '	<div class="row">
-								<a class ="botonGuay" href="mod_perf.php" >Modificar perfil</a>
-							</div>';
+						echo '	
+						<div class="row">
+							<a class ="botonGuay" href="mod_perf.php" >Modificar perfil</a>
+						</div>';
 						if (!empty($transferUser->getCurriculum())) {
-							echo '	<div class="row">
+							echo '	
+							<div class="row">
 								<a class ="botonGuay" href="download.php?id='.$transferUser->getId_Usuario().'" >Currículum</a>
 							</div>';
 						}
+					}
 				}
 				else{
 					if (!empty($transferUser->getCurriculum())) {
-							echo '	<div class="row">
+							echo '	
+							<div class="row">
 								<a class ="botonGuay" href="download.php?id='.$_GET["id"].'" >Currículum</a>
 							</div>';
 					}
