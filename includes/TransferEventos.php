@@ -1,5 +1,7 @@
 <?php
-class eventoTransfer {
+namespace es\ucm\fdi\aw;
+
+class TransferEventos {
 
 	private $nombre;
 	private $Localizacion;

@@ -1,10 +1,8 @@
 <?php
-//session_start();
-require("DAO_Eventos.php");
-require("TransferEventos.php");
-require_once("SA_Interface.php");
+namespace es\ucm\fdi\aw;
 
-class SA_Eventos implements SA_Interface {
+class SA_Eventos
+{
 
     const CIFRADO = '67a74306b06d0c01624fe0d0249a570f4d093747';
 

@@ -12,7 +12,7 @@
   <body>
     <?php require("common/header.php")?>
   	<div id="container">
-  		<div class="row"> <!--Row titulo-->
+  		<div class="row">
   			<div class="titulo">Conócenos</div>
   		</div>
   		<div class="row">

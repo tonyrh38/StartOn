@@ -1,9 +1,8 @@
 <?php
+namespace es\ucm\fdi\aw;
 
-require_once("DAO_Interface.php");
-
-
-class DAO_Eventos implements DAO_Interface {
+class DAO_Eventos
+{
 
     private static $instance = null;
 
@@ -49,11 +48,11 @@ class DAO_Eventos implements DAO_Interface {
 			$eventos = mysqli_fetch_assoc($results);
 			//cambio
 			if($eventos["Img_Evento"] == NULL)	{
-					return new  eventoTransfer($eventos["Nombre"],$eventos["Localizacion"],
+					return new  TransferEventos($eventos["Nombre"],$eventos["Localizacion"],
           $eventos["Precio"],$eventos["Cantidad"],$eventos["Fecha"],$eventos["Img_Evento"]);
 			}
 			else{
-			    return new eventoTransfer($eventos["Nombre"],$eventos["Localizacion"],
+			    return new TransferEventos($eventos["Nombre"],$eventos["Localizacion"],
           $eventos["Precio"],$eventos["Cantidad"],$eventos["Fecha"],$eventos["Img_Evento"]);
 			}
 		}
@@ -102,7 +101,7 @@ class DAO_Eventos implements DAO_Interface {
 
 		if ($query){
 			while($fila = mysqli_fetch_assoc($query)){
-                $transfer = new eventoTransfer($fila["Nombre"],$fila["Localizacion"],
+                $transfer = new TransferEventos($fila["Nombre"],$fila["Localizacion"],
                 $fila["Precio"],$fila["Cantidad"],$fila["Fecha"],$fila["Img_Evento"]);
 				array_push($lista, $transfer);
 			}
@@ -140,7 +139,7 @@ class DAO_Eventos implements DAO_Interface {
 
     if ($query){
       while($fila = mysqli_fetch_assoc($query)){
-                $transfer = new eventoTransfer($fila["Nombre"],$fila["Localizacion"],
+                $transfer = new TransferEventos($fila["Nombre"],$fila["Localizacion"],
                 $fila["Precio"],$fila["Cantidad"],$fila["Fecha"],$fila["Img_Evento"]);
         array_push($lista, $transfer);
       }

@@ -1,34 +1,22 @@
-<!DOCTYPE html>
 <?php
-require_once ("../includes/config.php");
-require_once ("../logica/SA_Eventos.php");
-require_once ("../logica/SA_Comentario.php");
-require_once ("../logica/SA_Usuario.php");
-require_once ("../logica/transferComentario.php");
+require_once __DIR__.'/../includes/config.php';
+
 ?>
-
+<!DOCTYPE html>
 <html>
-
 <head>
 	<link rel="stylesheet" type="text/css" href="css/common.css" />
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
-
-<body>
-	<?php require("common/header.php")?>
-
 <?php
-if(isset($_POST['delete'])){
-		$nombreEvento = $_POST['delete'];
-		$idUser = $_SESSION['id_usuario'];
+	if(isset($_POST['delete'])){
+			$nombreEvento = $_POST['delete'];
+			$idUser = $_SESSION['id_usuario'];
 
-		$SA_Comentario = SA_Comentario::getInstance();
-		$SA_Comentario->deleteElement($nombreEvento, $idUser);
-	}
- ?>
-
- <?php
- if(isset($_POST['crearComentario'])){
+			$SA_Comentario = SA_Comentario::getInstance();
+			$SA_Comentario->deleteElement($nombreEvento, $idUser);
+		}
+ 	if(isset($_POST['crearComentario'])){
  		$nombreEvento = $_POST['crearComentario'];
  		$idUser = $_SESSION['id_usuario'];
 		$Titulo = $_POST['titulo'];
@@ -43,27 +31,28 @@ if(isset($_POST['delete'])){
 		$formAction = 'listaEventos.php';
 		header('Location: '.$formAction);
  	}
-  ?>
+	if($_SERVER["REQUEST_METHOD"] == "GET" && $_GET["id"]){
+		$id = htmlspecialchars($_GET["id"]);
+		$SA = SA_Eventos::getInstance();
+		$transfer = $SA->getElement($id);
+	}
+	else{
+		$id = htmlspecialchars($_GET["id"]);
+		$SA = SA_Eventos::getInstance();
+		$transfer = $SA->getElement($id);
+	}
+	
+	function test_input($data) {
+		$data = trim($data);
+		$data = stripslashes($data);
+		$data = htmlspecialchars($data);
+		return $data;
+	}
+?>
+<body>
+	<?php require("common/header.php")?>
 
-	<?php
-		if($_SERVER["REQUEST_METHOD"] == "GET" && $_GET["id"]){
-			$id = htmlspecialchars($_GET["id"]);
-			$SA = SA_Eventos::getInstance();
-			$transfer = $SA->getElement($id);
-		}
-		else{
-			$id = htmlspecialchars($_GET["id"]);
-			$SA = SA_Eventos::getInstance();
-			$transfer = $SA->getElement($id);
-		}
-		function test_input($data) {
-			$data = trim($data);
-			$data = stripslashes($data);
-			$data = htmlspecialchars($data);
-			return $data;
-		}
 
-	?>
 	<div id="container">
 		<div id="perfil">
 			<div id="card">

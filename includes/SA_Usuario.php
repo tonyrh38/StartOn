@@ -4,9 +4,6 @@ namespace es\ucm\fdi\aw;
 class SA_Usuario 
 {
 
-
-  //static const: valor que nos indica el tipo de cifrado
-  //define("CIFRADO" , "67a74306b06d0c01624fe0d0249a570f4d093747);
   const CIFRADO = '67a74306b06d0c01624fe0d0249a570f4d093747';
   private static $instance = null;
   //Evitamos asi la contruccion de la clase

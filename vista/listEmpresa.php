@@ -45,10 +45,13 @@ require_once __DIR__.'/../includes/config.php';
   <?php require("common/header.php")?>
 	<div id="container">
     <div class="row">
+        <div class="titulo">Conoce nuevas empresas</div>
+    </div>
+    <div class="row">
       <input class="busqueda" type="text" placeholder="Busca una empresa determinada..." onkeyup="showSugerencia(this.value)">
     </div>
     <div class="row">
-      <p> Filtra por: 
+      <p><b>Filtra por:</b> 
         <a class ="botonGuay" onclick="showListaOrdenada('Sector')" >Sector</a>
         <a class ="botonGuay" onclick="showListaOrdenada('Localizacion')" >Localización</a>
         <a class ="botonGuay" onclick="showListaOrdenada('Oficio')" >Oficio</a>
@@ -75,7 +78,7 @@ require_once __DIR__.'/../includes/config.php';
               echo '<p class="burbuja">'.$value->getLocalizacion().'</p>';
             }
   					if (!empty($value->getOficio())) {
-            echo '<p class="burbuja" id="btexto"> '. $value->getOficio(). '</p>';
+            echo '<p class="burbuja">'.$value->getOficio().'</p>';
             }
   				echo'</div>';
         echo "</div>";

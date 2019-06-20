@@ -45,10 +45,13 @@ require_once __DIR__.'/../includes/config.php';
   <?php require("common/header.php")?>
   <div class = container>
     <div class="row">
-      <input class="busqueda" type="text" placeholder="Busca un usuario determinado..."  onkeyup="showSugerencia(this.value)">
+        <div class="titulo">Conoce otros usuarios</div>
+    </div>
+    <div class="row">
+      <input class="busqueda" type="text" placeholder="Busca un usuario determinado..." onkeyup="showSugerencia(this.value)">
     </div>
     <div class = "row">
-      <p> Filtra por: 
+      <p><b>Filtra por:</b> 
         <a class ="botonGuay" onclick="showListaOrdenada('Oficio')" >Oficio</a>
         <a class ="botonGuay" onclick="showListaOrdenada('Localizacion')" >Localización</a>
       </p>
@@ -56,29 +59,29 @@ require_once __DIR__.'/../includes/config.php';
   </div>
 	<div id="container2">
     <?php
-				$SA = es\ucm\fdi\aw\SA_Usuario::getInstance();
-				$ListOfUser = $SA->getAllElements();
-        $cont = 0;
-				foreach($ListOfUser as $value){
-          if(($cont % 4) == 0){ echo '<div class = "row">'; }
-          echo "
-          <div class = 'half-column'>
-            <div id= 'card'>
-              <a href ='perfUser.php?id=".$value->getId_Usuario()."'>
-              <img src= '../".$value->getImagenPerfil()."'></a>
-						  <p class='burbuja' id='btitulo'>".$value->getNombre()." ".$value->getApellido()."</p>";
-              if (!empty($value->getOficio())) {
-                echo "<p class='burbuja'> ".$value->getOficio()."</p>";
-              }
-              if (!empty($value->getLocalizacion())) {
-                echo '<p class="burbuja"> '.$value->getLocalizacion().'</p>';
-              }
-            echo'</div>';
-          echo "</div>";
-          if(($cont % 4) == 3){ echo '</div>'; }
-          $cont += 1;
-        }
-			?>
+			$SA = es\ucm\fdi\aw\SA_Usuario::getInstance();
+			$ListOfUser = $SA->getAllElements();
+      $cont = 0;
+			foreach($ListOfUser as $value){
+        if(($cont % 4) == 0){ echo '<div class = "row">'; }
+        echo "
+        <div class = 'half-column'>
+          <div id= 'card'>
+            <a href ='perfUser.php?id=".$value->getId_Usuario()."'>
+            <img src= '../".$value->getImagenPerfil()."'></a>
+					  <p class='burbuja' id='btitulo'>".$value->getNombre()." ".$value->getApellido()."</p>";
+            if (!empty($value->getOficio())) {
+              echo "<p class='burbuja'> ".$value->getOficio()."</p>";
+            }
+            if (!empty($value->getLocalizacion())) {
+              echo '<p class="burbuja"> '.$value->getLocalizacion().'</p>';
+            }
+          echo'</div>';
+        echo "</div>";
+        if(($cont % 4) == 3){ echo '</div>'; }
+        $cont += 1;
+      }
+		?>
 	</div>
 		<?php require("common/footer.php")?>
 </body>
