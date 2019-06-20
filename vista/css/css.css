@@ -215,20 +215,20 @@ border-radius: 20px;
   background-image:url('../img/Logo2.png');
   background-repeat:no-repeat;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  border-radius: 20px;
+  border-radius: 10px;
 }
 a {
   text-decoration: none;
   font-size: 18px;
   color: black;
-  border-radius: 20px;
+  border-radius: 10px;
   margin: -3px;
 }
 /*
 
 */
 img{
- border-radius: 20px;
+ border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 }
 #imagenCuadro{
@@ -281,13 +281,12 @@ div #card img {
   padding: 14px;
 }
 #bcoment{
-  float:left;
+  margin: 20px;
+  padding: 4px;
   background-color: #c9c9ff;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   border-radius: 10px;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  width: 66%;
+
 }
 #FotoPerfil{
   border-radius: 10px;
@@ -311,7 +310,7 @@ div #card img {
   margin:2px 8px 6px;
   padding-left:6px;
   box-sizing: border-box;
-  border-radius:30px;
+  border-radius:10px;
   border:0;
   font-family: 'Source Sans Pro', sans-serif;
   font-size:1em;
@@ -352,7 +351,7 @@ extras
   margin:2px 0 6px;
   padding-left:6px;
   box-sizing: border-box;
-  border-radius:30px;
+  border-radius:10px;
   border:0;
   font-family: 'Source Sans Pro', sans-serif;
   font-size:1em;

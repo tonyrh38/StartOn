@@ -1,10 +1,8 @@
 <?php
-//session_start();
-require("DAO_Comentario.php");
-require("transferComentario.php");
-require_once("SA_Interface.php");
+namespace es\ucm\fdi\aw;
 
-class SA_Comentario{
+class SA_Comentario
+{
 
     const CIFRADO = '67a74306b06d0c01624fe0d0249a570f4d093747';
 

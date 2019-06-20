@@ -1,8 +1,8 @@
 <?php
+namespace es\ucm\fdi\aw;
 
-require_once("DAO_Interface.php");
-
-class DAO_Comentario{
+class DAO_Comentario
+{
 
     private static $instance = null;
 
@@ -31,8 +31,6 @@ class DAO_Comentario{
 
 		$consulta="INSERT INTO comentario (NombreEvento, ID_Usuario, Titulo, Contenido) VALUES('$NombreEvento' ,'$id_usuario','$Titulo', '$Contenido')";
 		$rs = $conn->query($consulta);
-
-    if(!$rs) echo "<br>".$conn->error."<br>";
 		return $rs;
 	}
 //--------------------------

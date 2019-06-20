@@ -69,7 +69,7 @@ require_once __DIR__.'/../includes/config.php';
         echo "
         <div class = 'half-column'>
           <div id= 'card'>
-            <a href ='perfUser.php?id=".$value->getNombre()."'>
+            <a href ='perfEvento.php?id=".$value->getNombre()."'>
             <img src= '../".$value->getImagenEvento()."'></a>
             <p class='burbuja' id='btitulo'>".$value->getNombre()."</p>";
             if (!empty($value->getFecha())) {

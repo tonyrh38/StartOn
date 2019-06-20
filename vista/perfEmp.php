@@ -90,12 +90,12 @@ require_once __DIR__.'/../includes/config.php';
 							$idEmp = $transfer->getId_Empresa();
 							if($SAlikes->getElementsByIds($idEmp, $_SESSION['id_usuario']) != false){
 								echo '<form action="perfEmp.php?id='.$idEmp.'" method="post">';
-								echo '<button class="botonGuay" id="botonRojo" type="submit" name="dislike" value="'.$idEmp.'">Quitar like</button>';
+								echo '<button class="botonSubmit" style="margin: 10px" id="botonRojo" type="submit" name="dislike" value="'.$idEmp.'">Quitar like</button>';
 								echo '</form>';
 							}
 							else{
 								echo '<form action="perfEmp.php?id='.$idEmp.'" method="post">';
-								echo '<button id="likeButton" class="botonGuay"  type="submit" name="like" value="'.$idEmp.'">Like</button>';
+								echo '<button id="likeButton" class="botonSubmit" style="margin: 10px" type="submit" name="like" value="'.$idEmp.'">Like</button>';
 								echo '</form>';
 							}
 						}

@@ -59,7 +59,7 @@ require_once __DIR__.'/../includes/config.php';
 					if($_SERVER["REQUEST_METHOD"] !== "GET" || ($_SERVER["REQUEST_METHOD"] == "GET" && (!$_GET || $_GET["id"]==$_SESSION['id_usuario']))){
 						echo '	
 						<div class="row">
-							<a class ="botonGuay" href="mod_perf.php" >Modificar perfil</a>
+							<a class ="botonGuay" href="mod_perfUser.php" >Modificar perfil</a>
 						</div>';
 						if (!empty($transferUser->getCurriculum())) {
 							echo '	
@@ -69,7 +69,7 @@ require_once __DIR__.'/../includes/config.php';
 						}
 					}
 				}
-				else{
+				elseif(isset($_SESSION['login']) && $_SESSION['login'] == true){
 					if (!empty($transferUser->getCurriculum())) {
 							echo '	
 							<div class="row">

@@ -1,5 +1,8 @@
 <?php
-class transferComentario {
+namespace es\ucm\fdi\aw;
+
+class transferComentario
+{
 
 	private $NombreEvento;
   private $IdUsuario;

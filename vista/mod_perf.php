@@ -1,10 +1,8 @@
-<!DOCTYPE html>
 <?php
-require_once ("../includes/config.php");
-require_once ("../logica/SA_Empresa.php");
-require_once ("../logica/SA_Usuario.php");
- ?>
+require_once __DIR__.'/../includes/config.php';
 
+?>
+<!DOCTYPE html>
 <html>
 <head>
 	<link rel="stylesheet" type="text/css" href="css/common.css" />
