@@ -57,7 +57,7 @@ class DAO_Eventos
 			}
 		}
 		else {
-			return ;//NULL
+			return null;
 		}
 	}
 //--------------------------
@@ -74,20 +74,8 @@ class DAO_Eventos
 	public function updateElement($id, $campo, $nuevoValor) {
 		$app = Aplicacion::getSingleton();
 		$db = $app->conexionBd();
-		if($campo == "Img_Evento")
-		{
-			$query = "SELECT 'Img_Evento' FROM evento WHERE Nombre = '$id'";
-			$results  = mysqli_query($db, $query);
-			if(mysqli_num_rows($results) != 0)
-			{
-				while($fila=mysqli_fetch_assoc($results))
-				{
-					$imagen = $fila["Img_Evento"];
-				}
-			}
-		}
 		$consulta="UPDATE evento SET ".$campo." = '".$nuevoValor."' WHERE Nombre = '".$id."'";
-		$res = mysqli_query($db, $consulta) ? false : true;
+		$res = mysqli_query($db, $consulta) ? true : false;
     	return $res;
 	}
     //--------------------------

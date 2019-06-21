@@ -46,10 +46,7 @@ class TransferEventos {
 	}
 /**@return imagenEvento: url value*/
 	public function getImagenEvento(){
-		if(($this->Img_Evento)==null)
-			return 'event.png';
-		else
-			return $this->Img_Evento;
+		return $this->Img_Evento;
 	}
 
 /**SETTER: cambian los valores */

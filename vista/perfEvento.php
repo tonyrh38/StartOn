@@ -32,11 +32,7 @@ require_once __DIR__.'/../includes/config.php';
 		$id = htmlspecialchars($_GET["id"]);
 		$SA = es\ucm\fdi\aw\SA_Eventos::getInstance();
 		$transfer = $SA->getElement($id);
-	}
-	else{
-		$id = htmlspecialchars($_GET["id"]);
-		$SA = es\ucm\fdi\aw\SA_Eventos::getInstance();
-		$transfer = $SA->getElement($id);
+		$_SESSION['id_evento'] = $transfer->getNombre();
 	}
 	
 	function test_input($data) {
@@ -75,7 +71,7 @@ require_once __DIR__.'/../includes/config.php';
 					}
 					if(isset($_SESSION['login']) && $_SESSION['login'] == true && isset($_SESSION['id_empresa'])){
 						if($_SESSION['id_empresa'] == $SA->getEventEmpresa($transfer->getNombre())){
-							echo '<div class="row"><a class ="botonGuay" href="mod_evento.php?id='.$transfer->getNombre().'">Modifica Evento</a></div>';
+							echo '<div class="row"><a class ="botonGuay" href="mod_evento.php?id='.$transfer->getNombre().'">Modificar Evento</a></div>';
 						}
 					}	
 				?>

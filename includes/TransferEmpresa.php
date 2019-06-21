@@ -67,10 +67,7 @@ class TransferEmpresa {
 
 		/**@return imagenPerfil: url value*/
 	public function getImagenPerfil(){
-		if(($this->imagenPerfil)==null)
-			return 'img/empresa.png';
-		else
-			return $this->imagenPerfil;
+		return $this->imagenPerfil;
 	}
 	public function getCartaPresentacion(){
 		return $this->cartaPresentacion;

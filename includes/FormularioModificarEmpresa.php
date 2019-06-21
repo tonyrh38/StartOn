@@ -77,7 +77,7 @@ EOF;
             $tEmpActual = $SA->getElement($_SESSION["id_empresa"]);
             $numLikes= $tEmpActual->getNumLikes();
             $transfer = new TransferEmpresa($_SESSION["id_empresa"],$nombre,$password, $email,$localidad,$sector,$oficio, $fase ,$imagen_destino,$presentacion,$buscamos,$ofrecemos, $numLikes);
-            var_dump($transfer);
+            
             $user = $SA->updateElement($transfer);
             $result = 'perfEmp.php';
         }

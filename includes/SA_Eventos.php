@@ -1,5 +1,6 @@
 <?php
 namespace es\ucm\fdi\aw;
+require_once __DIR__.'/../includes/config.php';
 
 class SA_Eventos
 {
@@ -35,11 +36,6 @@ class SA_Eventos
 
 
     function createElement($transfer) {
-    //comprobamos si algun campo esta vacio y notificamos el error si lo estae, estos campos son obligatorios para crear un nuevo elemento
-    if (empty($transfer->getNombre()) || empty($transfer->getLocalizacion()) || empty($transfer->getFecha())) {
-           return "Error";
-    }
-    //Si el tamaño del array es 0 significa que no tenemos errores en la lista
     $eventDAO = DAO_Eventos::getInstance();
     //Recibimos la lista de los elementos que tenemos en la base de datos
     if($eventDAO->getElementById($transfer->getNombre()) == NULL) {
@@ -47,7 +43,7 @@ class SA_Eventos
       $prueba = $eventDAO->createElement($transfer);
       return "listaEventos.php";
     }
-    return "Error";
+    return null;
   }
 
 	  /**Esta funcion se encarga de eliminar una empresa de la base de datos
@@ -93,15 +89,18 @@ class SA_Eventos
     function elementRelation($transfer) {}
 
     function updateElement($transfer) {
-
+      var_dump($transfer);
       if (empty($transfer->getNombre())) {
           return "Error";
-        }
+      }
       //Realizamos la conexion
       $eventDAO = DAO_Eventos::getInstance();
             //Comprobamos si el identificador de la empresa existe en nuestra base de datos
       if ($eventDAO->getElementById($transfer->getNombre())) {
         //Modificamos los diferentes campos de la base de datos que no esten incorrectos
+        if (!empty($transfer->getNombre())) {
+          $eventDAO->updateElement($transfer->getNombre(),"Nombre" ,$_SESSION["id_evento"]);
+        }
         if (!empty($transfer->getLocalizacion())) {
           $eventDAO->updateElement($transfer->getNombre(),"Localizacion" ,$transfer->getLocalizacion());
         }
