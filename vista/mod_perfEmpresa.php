@@ -11,9 +11,9 @@ require_once __DIR__.'/../includes/config.php';
 </head>
 <?php
 	if(isset($_SESSION['login']) && $_SESSION['login'] == true){
-		if(isset($_SESSION["id_usuario"])){
-			$id = $_SESSION['id_usuario'];
-			$SA = es\ucm\fdi\aw\SA_Usuario::getInstance();
+		if(isset($_SESSION["id_empresa"])){
+			$id = $_SESSION['id_empresa'];
+			$SA = es\ucm\fdi\aw\SA_Empresa::getInstance();
 			$transfer = $SA->getElement($id);
 		}
 	}
@@ -27,7 +27,7 @@ require_once __DIR__.'/../includes/config.php';
     	<div class="titulo">Modificar campos:</div>
 		<div class="form-consulta" style="margin-bottom: 10px">
 			<?php 
-				$form = new es\ucm\fdi\aw\FormularioModificarUsuario();
+				$form = new es\ucm\fdi\aw\FormularioModificarEmpresa();
 				$form->gestiona();
 			?>
 		</div>

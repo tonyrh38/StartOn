@@ -76,17 +76,11 @@ class DAO_Empresa
 //--------------------------
   public function deleteElement($id){
     $app = Aplicacion::getSingleton();
-    $db = $app->conexionBd();
-/*
-    $SA_Likes = SA_Like::getInstance();
-    $SA_Likes->deleteElementByIdEmpresa($id);
-
-    $DAO_Eventos= DAO_Eventos::getInstance();
-    $DAO_Eventos->empresaEliminada($id);*/
+    $conn = $app->conexionBd();
 
     $consulta="DELETE FROM empresa WHERE ID_Empresa = '$id'";
 
-    $var = mysqli_query($db, $consulta);
+    $var = $conn->query($consulta);
     if ($var){
       return true;
     } else{
@@ -97,20 +91,6 @@ class DAO_Empresa
 	public function updateElement($id, $campo, $nuevoValor){
 		$app = Aplicacion::getSingleton();
 		$db = $app->conexionBd();
-
-		if($campo == "imagen") {
-			$query = "SELECT imagen FROM empresa WHERE ID_Empresa = '$id'";
-			$results  = mysqli_query($db, $query);
-
-			if(mysqli_num_rows($results) != 0) {
-
-				while($fila=mysqli_fetch_assoc($results))	{
-					$imagen = $fila["imagen"];
-					unlink('./imagenPerfil/'.$imagen);	//TO DO
-				}
-			}
-		}
-
 		$consulta="UPDATE empresa SET ".$campo." = '$nuevoValor' WHERE ID_Empresa = '$id'";
 		$res = mysqli_query($db, $consulta) ? false :true ;
     return $res;
@@ -158,9 +138,6 @@ class DAO_Empresa
     $likesList = $SAlikes->getElementsByIdEmpresa($id);
     $numLikes = 0;
 
-    /*foreach($likesList as $value) {
-      $numLikes = $numLikes + 1;
-    }*/
     error_reporting(E_ERROR | E_PARSE);
     $numLikes = sizeof($likesList);
 

@@ -31,7 +31,7 @@ USE `startondb`;
 
 CREATE TABLE `comentario` (
   `NombreEvento` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
-  `ID_Usuario` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `ID_Usuario` int NOT NULL,
   `Titulo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `Contenido` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -43,7 +43,7 @@ CREATE TABLE `comentario` (
 --
 
 CREATE TABLE `crea_evento` (
-  `ID_Empresa` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
+  `ID_Empresa` int NOT NULL,
   `Nombre_Evento` varchar(255) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
@@ -54,7 +54,7 @@ CREATE TABLE `crea_evento` (
 --
 
 CREATE TABLE `empresa` (
-  `ID_Empresa` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
+  `ID_Empresa` int NOT NULL,
   `email` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `password` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `Nombre` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
@@ -91,7 +91,7 @@ CREATE TABLE `evento` (
 --
 
 CREATE TABLE `interaccion_emp_us` (
-  `ID_Empresa` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
+  `ID_Empresa` int NOT NULL,
   `ID_Usuario` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `Fecha` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
@@ -114,7 +114,7 @@ CREATE TABLE `tema_evento` (
 --
 
 CREATE TABLE `user_apunta_evento` (
-  `ID_Usuario` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
+  `ID_Usuario` int NOT NULL,
   `Event_Name` varchar(255) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
@@ -125,7 +125,7 @@ CREATE TABLE `user_apunta_evento` (
 --
 
 CREATE TABLE `usuario` (
-  `ID_usuario` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
+  `ID_usuario` int NOT NULL,
   `email` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `password` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `Nombre` varchar(255) COLLATE utf8_spanish_ci NOT NULL,

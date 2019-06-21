@@ -107,7 +107,7 @@ require_once __DIR__.'/../includes/config.php';
 					if($_SERVER["REQUEST_METHOD"] !== "GET" || ($_SERVER["REQUEST_METHOD"] == "GET" && (!$_GET || $_GET["id"]==$_SESSION['id_empresa']))){
 						echo '
 						<div class="row">
-							<a  id= "botonSubmit" class ="botonGuay" href="mod_perf.php" >Modificar perfil</a>
+							<a  id= "botonSubmit" class ="botonGuay" href="mod_perfEmpresa.php" >Modificar perfil</a>
 						</div>';
 						echo '
 						<div class="row">

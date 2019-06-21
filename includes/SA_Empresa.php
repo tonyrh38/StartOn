@@ -33,6 +33,17 @@ class SA_Empresa
 		return $empDAO->getElementById($id);
   }
 
+  function existEmail($email){
+    $empDAO = DAO_Empresa::getInstance();
+    $res = $empDAO->getElementByEmail($email); 
+    if($res  == null) {
+        return false;
+    }
+    else{
+       return true;
+    }
+  }
+
   /**Esta funcion se encarga de crear un elemento a partir de un transfer
     * @param transfer: contiene un transfer con posibles datos de una empresa
     @return error: si la creacion de la empresa esta incorrecta

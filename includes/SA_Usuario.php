@@ -30,7 +30,7 @@ class SA_Usuario
 	function getElement($id){
 	 $userDAO = DAO_Usuario::getInstance();
 	 $res = $userDAO->getElementById($id);
-    if($res  == NULL) {
+    if($res  == null) {
 		  return "Error";
 		}
     else{
@@ -41,7 +41,7 @@ class SA_Usuario
   function existEmail($email){
     $userDAO = DAO_Usuario::getInstance();
     $res = $userDAO->getElementByEmail($email); 
-    if($res  == NULL) {
+    if($res  == null) {
         return false;
     }
     else{

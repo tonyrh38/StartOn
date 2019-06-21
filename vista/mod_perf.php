@@ -69,8 +69,8 @@ require_once __DIR__.'/../includes/config.php';
 			}
 
 				$SA = SA_Empresa::getInstance();
-        $tEmpActual = $SA->getElement($_SESSION["id_empresa"]);
-        $numLikes= $tEmpActual->getNumLikes();
+        	$tEmpActual = $SA->getElement($_SESSION["id_empresa"]);
+        	$numLikes= $tEmpActual->getNumLikes();
 				$transfer = new empresaTransfer($_SESSION["id_empresa"],$nombre,$password, $email,$localizacion,$sector,$oficio, $fase ,$imagen_destino,$presentacion,$buscamos,$ofrecemos, $numLikes);
 				$dir = $SA->updateElement($transfer);
 		 		if($dir !== "Error"){
