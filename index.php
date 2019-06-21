@@ -11,6 +11,9 @@
 <body>
   <?php require ("vista/common/indexHeader.php")?>
 	<div id="container">
+    <?php
+      var_dump($_SESSION); 
+    ?>
 		<div class="row">
       <div class="tituloIndex">Conectando talento con Startups</div>
     </div>

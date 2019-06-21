@@ -73,9 +73,9 @@ class DAO_Usuario
 //--------------------------
 	public function deleteElement($id){
 		$app = Aplicacion::getSingleton();
-		$db = $app->conexionBd();
+		$conn = $app->conexionBd();
 		$consulta="DELETE FROM usuario WHERE ID_usuario = '$id'";
-		if (mysqli_query($db, $consulta)){
+		if ($conn->query($consulta)){
 			return true;
 		} else{
 			return false;

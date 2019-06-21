@@ -151,24 +151,10 @@ class SA_Usuario
   @return errores: devuelve un numero posterior al pasado por parametro
   @return .php: si el codigo es correcto se genera el perfil de usuario o si la verificación no ha sido incorrecta se carga la pagina principal*/
 	function deleteElement($id){
-    //comprobamos si algun campo esta vacio y notificamos el error
-      if (empty($id)) {
-        return "Error";
-      }
-  	//si no hay ningun error...
 		$userDAO = DAO_Usuario::getInstance();
-		//Comprobamos si el id del posible usuario asignado en la base de datos
-		if ($userDAO->getElementById($id) != NULL) {
-		  //Eliminamos el usuario y si no ha producico error redirigimos al inicio
-			if ($userDAO->deleteElement($id)) {
-				return "logout.php";
-			}
-			//Si no se ha podido eliminar se comunica al usuario
-			else {
-					return "Error";
-			}
+		if ($userDAO->deleteElement($id)) {
+			return "logout.php";
 		}
-		//Si ha pasado un id incorrecto se comunica al usuario
 		else {
 				return "Error";
 		}

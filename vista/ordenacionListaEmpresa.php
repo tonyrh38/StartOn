@@ -1,37 +1,44 @@
 <?php
-    require_once ("../includes/config.php");
-    require_once ("../logica/SA_Empresa.php");
-    $seleccionOrdenada = $_GET['q'];
+  require_once __DIR__.'/../includes/config.php';
+  $seleccionOrdenada = $_GET['q'];
 
-    $SA = SA_Empresa::getInstance();
-    $ListOfEvents = $SA->getAllElementsById($seleccionOrdenada);
-    $title = "";
-    $lastTitle = "";
-    foreach($ListOfEvents as $value) {
-      if ($seleccionOrdenada == "Sector") {
-        $title = $value->getSector();
-      } else if ($seleccionOrdenada == "Oficio") {
-        $title = $value->getOficio();
-      } else if ($seleccionOrdenada == "Localizacion") {
-        $title = $value->getLocalizacion();
+  $SA = es\ucm\fdi\aw\SA_Empresa::getInstance();
+  $ListOfEvents = $SA->getAllElementsById($seleccionOrdenada);
+  $categoriaActual = "";
+  $categoriaAux = "";
+  $cont = 0;
+  foreach($ListOfEvents as $value) {
+    if ($seleccionOrdenada == "Sector") {
+      $categoriaActual = $value->getSector();
+    } else if ($seleccionOrdenada == "Oficio") {
+      $categoriaActual = $value->getOficio();
+    } else if ($seleccionOrdenada == "Localizacion") {
+      $categoriaActual = $value->getLocalizacion();
+    }
+    if ($categoriaActual != $categoriaAux) {
+      if ($cont > 0 && ($cont % 4) != 0) {
+        echo "</div>";
       }
-      if ($lastTitle != $title) {
-        if ($lastTitle != "") {
-            echo'</div>';
-        }
-        echo '<div class = "row">';
-        $lastTitle = $title;
-        echo '<h2>'.$lastTitle.'</h2>';
-        }
-        echo '<div id= "card">';     //hay que hacer el css card en comon para la lista
-          echo '<a href ="perfEmp.php?id='.$value->getId_Empresa().'" ><img src= "../'.$value->getImagenPerfil().'"  style="width:100%"></a>';
-          echo ' <p class="burbuja" id="btitulo"> '. $value->getNombre(). '</p>';
-          echo '<p class="burbuja"> '. $value->getFase(). '</p>';
-          echo '<p class="burbuja"> '. $value->getLocalizacion(). '</p>';
-          echo '<p class="burbuja" id="btexto"> '. $value->getCartaPresentacion(). '</p>';
-        echo'</div>';
+      $cont = 0;
+      $categoriaAux = $categoriaActual;
+      echo '<div class="row"><h2>'.$categoriaActual.'</h2></div>';
     }
-    if ($lastTitle != "") {
+    if(($cont % 4) == 0){ echo '<div class = "row">'; }
+      echo '
+      <div class = "half-column">
+        <div id= "card">
+          <a href ="perfEmp.php?id='.$value->getId_Empresa().'" >
+          <img src= "../'.$value->getImagenPerfil().'"  style="width:100%"></a>
+          <p class="burbuja" id="btitulo"> '. $value->getNombre(). '</p>';
+          if (!empty($value->getFase())) {
+            echo "<p class='burbuja'> ".$value->getFase()."</p>";
+          }
+          if (!empty($value->getLocalizacion())) {
+            echo '<p class="burbuja"> '.$value->getLocalizacion().'</p>';
+          }
         echo'</div>';
-    }
+      echo "</div>";
+      if(($cont % 4) == 3){ echo '</div>'; }
+      $cont += 1;
+  }
 ?>
