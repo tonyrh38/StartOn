@@ -56,7 +56,9 @@ require_once __DIR__.'/../includes/config.php';
 			</div>
 			<?php
 				if(isset($_SESSION['login']) && $_SESSION['login'] == true && isset($_SESSION['id_usuario'])){
-					if($_SERVER["REQUEST_METHOD"] !== "GET" || ($_SERVER["REQUEST_METHOD"] == "GET" && (!$_GET || $_GET["id"]==$_SESSION['id_usuario']))){
+					if($_SERVER["REQUEST_METHOD"] !== "GET" || ($_SERVER["REQUEST_METHOD"] == "GET" && (!$_GET || $_GET["id"]==$_SESSION['id_usuario'])) || (isset($_SESSION['admin']) && $_SESSION['admin'])){
+						if(isset($_SESSION['admin']) && $_SESSION['admin'] && $_GET)
+							$_SESSION["id_usuario_modificar"] = $_GET["id"];
 						echo '	
 						<div class="row">
 							<a class ="botonGuay" href="mod_perfUser.php" >Modificar perfil</a>

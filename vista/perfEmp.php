@@ -86,7 +86,7 @@ require_once __DIR__.'/../includes/config.php';
 							echo '<p class ="burbuja"> '.$transfer->getLocalizacion().'</p>';
 						}
 						/* BOTON LIKES*/
-						if(isset($_SESSION['login']) && $_SESSION['login'] == true && isset($_SESSION['id_usuario'])){
+						if(isset($_SESSION['login']) && $_SESSION['login'] == true && isset($_SESSION['id_usuario']) && !(isset($_SESSION['admin']) && $_SESSION['admin'])){
 							$idEmp = $transfer->getId_Empresa();
 							if($SAlikes->getElementsByIds($idEmp, $_SESSION['id_usuario']) != false){
 								echo '<form action="perfEmp.php?id='.$idEmp.'" method="post">';
@@ -103,16 +103,20 @@ require_once __DIR__.'/../includes/config.php';
 				</div>
 			</div>
 			<?php
-				if(isset($_SESSION['login']) && $_SESSION['login'] == true && isset($_SESSION['id_empresa'])){
-					if($_SERVER["REQUEST_METHOD"] !== "GET" || ($_SERVER["REQUEST_METHOD"] == "GET" && (!$_GET || $_GET["id"]==$_SESSION['id_empresa']))){
+				if(isset($_SESSION['login']) && $_SESSION['login'] == true && (isset($_SESSION['id_empresa']) || (isset($_SESSION['admin']) && $_SESSION['admin']))){
+					if((isset($_SESSION['admin']) && $_SESSION['admin']) ||	$_SERVER["REQUEST_METHOD"] !== "GET" || ($_SERVER["REQUEST_METHOD"] == "GET" && (!$_GET || $_GET["id"]==$_SESSION['id_empresa']))){
+						if(isset($_SESSION['admin']) && $_SESSION['admin'])
+							$_SESSION["id_empresa_modificar"] = $_GET["id"];
 						echo '
 						<div class="row">
 							<a  id= "botonSubmit" class ="botonGuay" href="mod_perfEmpresa.php" >Modificar perfil</a>
 						</div>';
+						if(!(isset($_SESSION['admin']) && $_SESSION['admin'])){
 						echo '
 						<div class="row">
 							<a class ="botonGuay" href="crear_evento.php" >Crear Evento</a>
 						</div>';
+						}
 					}
 				}
 			?>
