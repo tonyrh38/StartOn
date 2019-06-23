@@ -42,6 +42,11 @@ EOF;
         $result = array();
         $SA = SA_Usuario::getInstance();
 
+        if(isset($_SESSION['admin']) && $_SESSION['admin'])
+            $id_usuario = $_SESSION["id_usuario_modificar"];
+        else
+            $id_usuario = $_SESSION["id_usuario"];
+
         $nombre = isset($datos['nombre']) ? self::test_input($datos['nombre']) : null;
         if ( !empty($nombre) && mb_strlen($nombre) < 5 ) {
             $result[] = "El nombre tiene que tener una longitud de al menos 5 caracteres. ";
@@ -65,23 +70,23 @@ EOF;
             $archivo_destino = "";
             if(isset($_FILES["archivo"]) && $_FILES["archivo"]["name"] != ""){
             $archivo_ruta = $_FILES["archivo"]["tmp_name"];
-            $archivo_destino = "../resources/cv/curr". $_SESSION["id_usuario"].".pdf";
+            $archivo_destino = "../resources/cv/curr". $id_usuario.".pdf";
             copy($archivo_ruta,$archivo_destino);
             }
             $imagen_destino = "";
             if(isset($_FILES["imagen"]) && $_FILES["imagen"]["name"] != ""){
                 $imagen_ruta = $_FILES["imagen"]["tmp_name"];
                 if ($_FILES["imagen"]["type"] == "image/jpeg") {
-                    $imagen_destino = "resources/img/users/imgU". $_SESSION["id_usuario"].".jpg";
+                    $imagen_destino = "resources/img/users/imgU". $id_usuario.".jpg";
                 }
                 else{
-                    $imagen_destino = "resources/img/users/imgU". $_SESSION["id_usuario"].".png";
+                    $imagen_destino = "resources/img/users/imgU". $id_usuario.".png";
                 }
                 copy($imagen_ruta,"../".$imagen_destino);
             }
-            $transfer = new TransferUsuario($_SESSION["id_usuario"],$nombre,$apellido,$password, $email,$localidad, $experiencia ,$pasiones ,$presentacion,$imagen_destino,$oficio,$archivo_destino);
+            $transfer = new TransferUsuario($id_usuario,$nombre,$apellido,$password, $email,$localidad, $experiencia ,$pasiones ,$presentacion,$imagen_destino,$oficio,$archivo_destino);
             $user = $SA->updateElement($transfer);
-            $result = 'perfUser.php';
+            $result = 'perfUser.php?id='.$id_usuario;
         }
         return $result;
     }

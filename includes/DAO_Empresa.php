@@ -62,7 +62,9 @@ class DAO_Empresa
 		$conn = $app->conexionBd();
 	    //Buscamos en la base de datos el posble gmail
 	    $consul = sprintf("SELECT * FROM empresa WHERE Email = '%s' ORDER BY Nombre", $conn->real_escape_string($gmail));
-	    $res = $conn->query($consul);
+	    $res = mysqli_query($conn, $consul);
+		$consul2= sprintf("SELECT * FROM usuario WHERE Email = '%s' ORDER BY Nombre", $conn->real_escape_string($gmail));
+	    $res2= mysqli_query($conn, $consul2);
     	//Si la consulta fuese correcta
 	  	if (mysqli_num_rows($res) != 0){
 	  		$empresa = mysqli_fetch_assoc($res);
@@ -70,6 +72,9 @@ class DAO_Empresa
         	$empresa["Oficio"], $empresa["Fase"], $empresa["Img_Empresa"], $empresa["cartaPresentacion"], $empresa["buscamos"], $empresa["ofrecemos"], $empresa["numLikes"]);
 			return $transfer;
 		}
+		else if(mysqli_num_rows($res2) != 0)
+			$transfer = new TransferEmpresa("0","0","0","0", "0", "0","0", "0", "0", "0", "0", "0", "0");
+			return $transfer;
 		return null;
 	}
 

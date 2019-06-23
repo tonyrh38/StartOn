@@ -159,7 +159,7 @@ class SA_Empresa
     $empObject = $empDAO->getElementByEmail($transfer->getEmail());
     //Se comprueba que la contraseña que recibimos en el transfer coincicide con el valor hasheado del transfer recibido por el DAO
     $password = $transfer->getPassword();
-    if($empObject == null || $password !== $empObject->getPassword()){
+    if($empObject == null || $empObject->getEmail() == "0" || $password !== $empObject->getPassword()){
     	return null;
     }
     else{

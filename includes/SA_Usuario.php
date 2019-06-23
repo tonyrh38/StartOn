@@ -138,7 +138,7 @@ class SA_Usuario
     $userObject = $userDAO->getElementByEmail($transfer->getEmail());
     //Se comprueba que la contraseña que recibimos en el transfer coincicide con el valor hasheado del transfer recibido por el DAO
     $password = $transfer->getPassword();
-    if($userObject == null || $password !== $userObject->getPassword()){
+    if($userObject == null || $userObject->getEmail() == "0" || $password !== $userObject->getPassword()){
       return null;
     }
     else{

@@ -42,6 +42,11 @@ EOF;
         $result = array();
         $SA = SA_Empresa::getInstance();
 
+        if(isset($_SESSION['admin']) && $_SESSION['admin'])
+            $id_empresa = $_SESSION["id_empresa_modificar"];
+        else
+            $id_empresa = $_SESSION["id_empresa"];
+
         $nombre = isset($datos['nombre']) ? self::test_input($datos['nombre']) : null;
         if ( !empty($nombre) && mb_strlen($nombre) < 5 ) {
             $result[] = "El nombre tiene que tener una longitud de al menos 5 caracteres. ";
@@ -67,19 +72,19 @@ EOF;
             if(isset($_FILES["imagen"]) && $_FILES["imagen"]["name"] != ""){
                 $imagen_ruta = $_FILES["imagen"]["tmp_name"];
                 if ($_FILES["imagen"]["type"] == "image/jpeg") {
-                    $imagen_destino = "resources/img/users/imgU". $_SESSION["id_usuario"].".jpg";
+                    $imagen_destino = "resources/img/users/imgU". $id_empresa.".jpg";
                 }
                 else{
-                    $imagen_destino = "resources/img/users/imgU". $_SESSION["id_usuario"].".png";
+                    $imagen_destino = "resources/img/users/imgU". $id_empresa.".png";
                 }
                 copy($imagen_ruta,"../".$imagen_destino);
             }
-            $tEmpActual = $SA->getElement($_SESSION["id_empresa"]);
+            $tEmpActual = $SA->getElement($id_empresa);
             $numLikes= $tEmpActual->getNumLikes();
-            $transfer = new TransferEmpresa($_SESSION["id_empresa"],$nombre,$password, $email,$localidad,$sector,$oficio, $fase ,$imagen_destino,$presentacion,$buscamos,$ofrecemos, $numLikes);
+            $transfer = new TransferEmpresa($id_empresa,$nombre,$password, $email,$localidad,$sector,$oficio, $fase ,$imagen_destino,$presentacion,$buscamos,$ofrecemos, $numLikes);
             
             $user = $SA->updateElement($transfer);
-            $result = 'perfEmp.php';
+            $result = 'perfEmp.php?id='.$id_empresa;
         }
         return $result;
     }

@@ -14,6 +14,8 @@ require_once __DIR__.'/../includes/config.php';
 			$nombreEvento = $_POST['delete'];
 			$idUser = $_SESSION['id_usuario'];
 			$SA_Comentario->deleteElement($nombreEvento, $idUser);
+			$transfer = $_SESSION["evento_comentario_eliminar"];
+			$SA = es\ucm\fdi\aw\SA_Eventos::getInstance();
 	}
  	if(isset($_POST['crearComentario'])){
  		$nombreEvento = $_POST['crearComentario'];
@@ -23,7 +25,7 @@ require_once __DIR__.'/../includes/config.php';
 		$SA_Usuario = es\ucm\fdi\aw\SA_Usuario::getInstance();
 		$SA = es\ucm\fdi\aw\SA_Comentario::getInstance();
 
-		$transfer = new es\ucm\fdi\aw\transferComentario($nombreEvento, $idUser, $Titulo, $Contenido);
+		$transfer = new es\ucm\fdi\aw\TransferComentario($nombreEvento, $idUser, $Titulo, $Contenido);
 		$SA->createElement($transfer);
 		$formAction = 'perfEvento.php?id='.$nombreEvento;
 		header('Location: '.$formAction);
@@ -69,8 +71,9 @@ require_once __DIR__.'/../includes/config.php';
 						else
 							echo 'Desapuntate</a>';
 					}
-					if(isset($_SESSION['login']) && $_SESSION['login'] == true && isset($_SESSION['id_empresa'])){
-						if($_SESSION['id_empresa'] == $SA->getEventEmpresa($transfer->getNombre())){
+					if(isset($_SESSION['login']) && $_SESSION['login'] == true){
+						if((isset($_SESSION['id_empresa']) && $_SESSION['id_empresa'] == $SA->getEventEmpresa($transfer->getNombre()))
+							|| (isset($_SESSION['admin']) && $_SESSION['admin']) ){
 							echo '<div class="row"><a class ="botonGuay" href="mod_evento.php?id='.$transfer->getNombre().'">Modificar Evento</a></div>';
 						}
 					}	
@@ -97,6 +100,7 @@ require_once __DIR__.'/../includes/config.php';
             				echo ' <p class ="burbuja" id="btexto"> '. $document->getContenido() .'<p>';
 							if((isset($_SESSION['id_usuario'])) && ($document->getId_Usuario() == $_SESSION['id_usuario'])){
 								echo '<form action="perfEvento.php?id='.$document->getNombreEvento().'" method="post">';
+								$_SESSION["evento_comentario_eliminar"]=$transfer;
 		            			echo '<button class="botonSubmit" id="botonRojo" type="submit" name="delete" value="'.$document->getNombreEvento().'">Delete</button>';
 								echo '</form>';
 							}
@@ -105,7 +109,7 @@ require_once __DIR__.'/../includes/config.php';
 				}
 			?>
 			<?php
-				if(isset($_SESSION['id_usuario'])){
+				if(isset($_SESSION['id_usuario']) && !(isset($_SESSION['admin']) && $_SESSION['admin'])){
 					if($SA_Comentario->getElementsByIds($_GET["id"], $_SESSION['id_usuario']) ==false){
 						$id = $_GET["id"];
 						echo '<div class="row">';

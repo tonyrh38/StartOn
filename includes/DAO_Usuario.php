@@ -59,12 +59,18 @@ class DAO_Usuario
 		$app = Aplicacion::getSingleton();
 		$conn = $app->conexionBd();
 		$consulta = sprintf("SELECT * FROM usuario WHERE Email= '%s' ORDER BY Nombre", $conn->real_escape_string($gmail));
-	    $res = $conn->query($consulta);
+	    $consulta2= sprintf("SELECT * FROM empresa WHERE Email= '%s' ORDER BY Nombre", $conn->real_escape_string($gmail));
+	    $res = mysqli_query($conn, $consulta);
+	    $res2= mysqli_query($conn, $consulta2);
         //Si la consulta fuese tan correcta
 	     if (mysqli_num_rows($res) != 0){
 	     	$usuario = mysqli_fetch_assoc($res);
 			$transfer = new TransferUsuario($usuario["ID_usuario"],$usuario["Nombre"],$usuario["Apellidos"],
       		$usuario["Password"], $usuario["Email"], $usuario["Localizacion"], $usuario["Experiencia"], $usuario["Pasiones"], $usuario["CartaPresentacion"], $usuario["Img_Perfil"], $usuario["Oficio"], $usuario["Curriculum"]);
+			return $transfer;
+		}
+		else if(mysqli_num_rows($res2) != 0){
+			$transfer = new TransferUsuario("0","0","0","0", "0", "0", "0", "0", "0", "0", "0", "0");
 			return $transfer;
 		}
 		return null;

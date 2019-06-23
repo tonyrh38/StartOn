@@ -42,7 +42,7 @@ class DAO_Like
 
     if ($results){
 			while($likes = mysqli_fetch_assoc($results)){
-        $transfer = new transferLike($likes["ID_Empresa"],$likes["ID_Usuario"]);
+        $transfer = new TransferLike($likes["ID_Empresa"],$likes["ID_Usuario"]);
 				array_push($lista,$transfer);
 			}
 		}
@@ -58,7 +58,7 @@ class DAO_Like
 
       if ($results){
   			while($likes = mysqli_fetch_assoc($results)){
-          $transfer = new transferLike($likes["ID_Empresa"],$likes["ID_Usuario"]);
+          $transfer = new TransferLike($likes["ID_Empresa"],$likes["ID_Usuario"]);
   				array_push($lista,$transfer);
   			}
   		}
@@ -116,7 +116,7 @@ class DAO_Like
 
 		if ($query){
 			while($likes = mysqli_fetch_assoc($query)){
-                $transfer = new transferLike($likes["ID_Empresa"],$likes["ID_Usuario"]);
+                $transfer = new TransferLike($likes["ID_Empresa"],$likes["ID_Usuario"]);
 				array_push($lista,$transfer);
 			}
 		}

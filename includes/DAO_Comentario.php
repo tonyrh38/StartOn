@@ -43,7 +43,7 @@ class DAO_Comentario
 
     if ($results){
 			while($Comentario = mysqli_fetch_assoc($results)){
-                $transfer = new transferComentario($Comentario["NombreEvento"],$Comentario["ID_Usuario"],$Comentario["Titulo"],$Comentario["Contenido"]);
+        $transfer = new TransferComentario($Comentario["NombreEvento"],$Comentario["ID_Usuario"],$Comentario["Titulo"],$Comentario["Contenido"]);
 				array_push($lista,$transfer);
 			}
 		}
@@ -59,7 +59,7 @@ class DAO_Comentario
 
       if ($results){
   			while($Comentario = mysqli_fetch_assoc($results)){
-                  $transfer = new transferComentario($Comentario["NombreEvento"],$Comentario["ID_Usuario"],$Comentario["Titulo"],$Comentario["Contenido"]);
+                  $transfer = new TransferComentario($Comentario["NombreEvento"],$Comentario["ID_Usuario"],$Comentario["Titulo"],$Comentario["Contenido"]);
   				array_push($lista,$transfer);
   			}
   		}
@@ -112,7 +112,7 @@ class DAO_Comentario
 
 		if ($query){
 			while($Comentario = mysqli_fetch_assoc($query)){
-                $transfer = new transferComentario($Comentario["NombreEvento"],$Comentario["ID_Usuario"],$Comentario["Titulo"],$Comentario["Contenido"]);
+                $transfer = new TransferComentario($Comentario["NombreEvento"],$Comentario["ID_Usuario"],$Comentario["Titulo"],$Comentario["Contenido"]);
 				array_push($lista,$transfer);
 			}
 		}

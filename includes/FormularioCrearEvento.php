@@ -8,12 +8,17 @@ class FormularioCrearEvento extends Form
     }
     
     protected function generaCamposFormulario($datos) {
+        if(isset($_SESSION['fecha_crear_evento_bool']) && $_SESSION['fecha_crear_evento_bool']){
+            $fecha_incrustada = $_SESSION["fecha_crear_evento_value"];
+        }
+        else
+            $fecha_incrustada = "";
         $html = <<<EOF
         <label>Nombre del evento:</label> <input class="campo-form" type="text" name="nombre" value="" >
         <label>Localización:</label><input class="campo-form" type="text" name= "localidad" value="">
         <label>Precio:</label><input class="campo-form" type="text" name= "precio" value="">
         <label>Aforo:</label> <input class="campo-form" type="number" name="aforo" value="">
-        <label>Fecha:</label> <input class="campo-form" type="date" name="fecha" value="">
+        <label>Fecha:</label> <input class="campo-form" type="date" name="fecha" value= $fecha_incrustada>
         <input class="botonSubmit" type="submit" name="submit" value="Confirmar">
 EOF;
         return $html;

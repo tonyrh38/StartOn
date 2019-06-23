@@ -51,11 +51,16 @@ EOF;
                     $_SESSION['login'] = true;
                     $_SESSION['id_empresa'] = $user->getId_Empresa();
                     $_SESSION['nombre'] = $user->getNombre();
+                    $_SESSION['admin'] = false;
                     $result = 'perfEmp.php';
                 }
             } else {
                 $_SESSION['login'] = true;
                 $_SESSION['id_usuario'] = $user->getId_Usuario();
+                if( $user->getEmail() == "admin@starton.com")
+                    $_SESSION['admin'] = true;
+                else
+                    $_SESSION['admin'] = false;
                 $_SESSION['nombre'] = $user->getNombre();
                 $result = 'perfUser.php';
             }
