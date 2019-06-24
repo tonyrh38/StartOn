@@ -70,8 +70,8 @@ EOF;
             $archivo_destino = "";
             if(isset($_FILES["archivo"]) && $_FILES["archivo"]["name"] != ""){
             $archivo_ruta = $_FILES["archivo"]["tmp_name"];
-            $archivo_destino = "../resources/cv/curr". $id_usuario.".pdf";
-            copy($archivo_ruta,$archivo_destino);
+            $archivo_destino = "resources/cv/curr". $id_usuario.".pdf";
+            copy($archivo_ruta,"../".$archivo_destino);
             }
             $imagen_destino = "";
             if(isset($_FILES["imagen"]) && $_FILES["imagen"]["name"] != ""){

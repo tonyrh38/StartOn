@@ -24,9 +24,6 @@ require_once __DIR__.'/../includes/config.php';
 <body>
 	<?php require("common/header.php")?>
 	<div class="row">
-		    <?php
-      var_dump($_SESSION); 
-    ?>
     	<div class="titulo">Modificar campos:</div>
 		<div class="form-consulta" style="margin-bottom: 10px">
 			<?php 

@@ -72,9 +72,10 @@ class DAO_Empresa
         	$empresa["Oficio"], $empresa["Fase"], $empresa["Img_Empresa"], $empresa["cartaPresentacion"], $empresa["buscamos"], $empresa["ofrecemos"], $empresa["numLikes"]);
 			return $transfer;
 		}
-		else if(mysqli_num_rows($res2) != 0)
+		else if(mysqli_num_rows($res2) != 0){
 			$transfer = new TransferEmpresa("0","0","0","0", "0", "0","0", "0", "0", "0", "0", "0", "0");
 			return $transfer;
+		}
 		return null;
 	}
 
